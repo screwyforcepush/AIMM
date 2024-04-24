@@ -91,12 +91,14 @@ export default function OpenAIAssistant({
 
                     // update streaming message content
                     case "thread.message.delta":
-                        contentSnapshot += serverEvent.data.delta.content[0].text.value;
-                        const newStreamingMessage = {
-                            ...streamingMessage,
-                            content: contentSnapshot,
-                        };
-                        setStreamingMessage(newStreamingMessage);
+                        if(serverEvent.data.delta.content[0].text){
+                            contentSnapshot += serverEvent.data.delta.content[0].text.value;
+                            const newStreamingMessage = {
+                                ...streamingMessage,
+                                content: contentSnapshot,
+                            };
+                            setStreamingMessage(newStreamingMessage);
+                        }
                         break;
                 }
             }

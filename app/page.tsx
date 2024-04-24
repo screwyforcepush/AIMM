@@ -14,7 +14,7 @@ export default function Home() {
           </div>
         </div>
         <OpenAIAssistant 
-          assistantId="asst_gx3Htc0gLVNlpBQKLoefkXZZ"
+          assistantId="asst_F0BXMk3wkyyTWBYzjonmQpTe"
           greeting="I am a helpful chat assistant. How can I help you?"
           messageLimit={10}
         />
