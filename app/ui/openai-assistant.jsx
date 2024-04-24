@@ -143,7 +143,7 @@ export default function OpenAIAssistant({
                     className="border rounded w-full py-2 px-3 text-gray-70" 
                     onChange={handlePromptChange}
                     value={prompt}
-                    placeholder="prompt" />
+                    placeholder="Message Aimme" />
                 {isLoading ? 
                     <button 
                         disabled
