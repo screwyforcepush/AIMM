@@ -58,3 +58,7 @@
   background-color: black;
   color: white;
 }
+
+.custom-max-height {
+  max-height: calc(70vh - 20px);
+}
