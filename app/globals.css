@@ -62,3 +62,17 @@
 .custom-max-height {
   max-height: calc(70vh - 20px);
 }
+
+/* Custom Scrollbar Styling */
+.messages-container::-webkit-scrollbar {
+  width: 5px; /* Adjust width of the scrollbar */
+}
+
+.messages-container::-webkit-scrollbar-track {
+  background: transparent; /* Adapt to match bg-slate-200 */
+}
+
+.messages-container::-webkit-scrollbar-thumb {
+  background-color: slategray; /* Customize thumb color */
+  border-radius: 20px; /* Rounded corners */
+}

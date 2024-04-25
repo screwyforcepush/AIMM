@@ -3,7 +3,9 @@ import { useState } from "react";
 import React, { useEffect, useRef } from 'react';
 import { AiOutlineUser, AiOutlineRobot, AiOutlineSend } from "react-icons/ai";
 import Markdown from 'react-markdown';
-
+import Image from 'next/image';
+import { Radar } from 'react-chartjs-2';
+import 'chart.js/auto';
 
 export default function OpenAIAssistant({
     assistantId,
@@ -28,7 +30,7 @@ export default function OpenAIAssistant({
     const messagesEndRef = useRef(null);
 
     const scrollToBottom = () => {
-      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     }
 
     useEffect(scrollToBottom, [messages, isLoading]);
@@ -109,6 +111,8 @@ export default function OpenAIAssistant({
                             setStreamingMessage(newStreamingMessage);
                             scrollToBottom();
                         }
+                        else (console.log("No text value in delta event", serverEvent.data.delta.content[0]));
+
                         break;
                 }
             }
@@ -132,7 +136,7 @@ export default function OpenAIAssistant({
     }
 
     return (
-        <div className="flex flex-col bg-slate-200 shadow-md relative">
+        <div className="flex flex-col bg-slate-200 shadow-md relative rounded">
             {/* messages */}
             <div className="messages-container custom-max-height overflow-auto" >
                 {/* Message rendering */}
@@ -171,29 +175,77 @@ export default function OpenAIAssistant({
     )
 }
 
+function extractAndDelete(str) {
+    const regex = /ASSESSMENT_RESULT={\[(\d+(?:,\d+)*)\],"([^"]*)"\}/;
+    const match = str.match(regex);
+
+    if (match) {
+        // Extract the data
+        const numbers = match[1].split(',').map(Number); // Convert string numbers to actual numbers
+        const text = match[2];
+
+        // Delete the pattern from the original string
+        const updatedString = str.replace(regex, '');
+
+        return {
+            numbers,
+            text,
+            updatedString
+        };
+    } else {
+        return null; // No match found
+    }
+}
+
+
+function parseContent(content) {
+    const result = extractAndDelete(content);
+    if (result && result.numbers?.length == 6 && result.text && result.updatedString) {
+        return (
+            <div>
+            <Markdown>
+                {result.updatedString}
+            </Markdown>
+            {RadarChart({ assessment_arr: result.numbers, business_name: result.text})}
+            </div>
+        );
+    }
+    else return (
+        <Markdown>
+            {content}
+        </Markdown>
+    );
+}
+
 export function OpenAIAssistantMessage({ message }) {
+
 
     function displayRole(roleName) {
         switch (roleName) {
             case "user":
                 return <AiOutlineUser />;
             case "assistant":
-                return <AiOutlineRobot />;
+                return (
+                    <div className="w-30 h-30 rounded-lg overflow-hidden">
+                        <Image src={`/AIMM.jpeg`} width="256" height="256" alt="AIMM" />
+                    </div>
+                );
         }
     }
+
+
     return (
-        <div className="flex rounded-lg text-gray-700 bg-white shadow-md m-2 p-4 ">
-            <div className="text-4xl mr-5">
+        <div className="flex rounded-lg text-gray-700 bg-white shadow-md m-2 p-4">
+            <div className="flex-none w-10 text-4xl mr-5">
                 {displayRole(message.role)}
             </div>
             <div className="flex-auto overflow-auto px-2">
                 <div className="font-roboto text-gray-700" style={{ fontFamily: "'Roboto', sans-serif" }}>
-                    <Markdown>
-                        {message.content}
-                    </Markdown>
+                        {parseContent(message.content)}
                 </div>
             </div>
         </div>
+
     )
 }
 
@@ -206,3 +258,60 @@ function OpenAISpinner() {
         </svg>
     )
 }
+
+export function RadarChart({ assessment_arr, business_name }) {
+    const data = {
+        labels: ["Strategy and Vision", "Data Management", "Technology and Infrastructure",
+            "People and Culture", "Governance and Ethics", "Performance and Scalability"],
+        datasets: [{
+            label: business_name + "'s AI Maturity Assessment",
+            data: assessment_arr,
+            fill: true,
+            backgroundColor: 'rgba(0, 0, 255, 0.1)',
+            borderColor: 'blue',
+            pointBackgroundColor: 'blue',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'blue'
+        }]
+    };
+
+    const options = {
+        elements: {
+            line: {
+                borderWidth: 1.5
+            }
+        },
+        scales: {
+            r: {
+                angleLines: {
+                    display: true
+                },
+                suggestedMin: 0,
+                suggestedMax: 5,
+                ticks: {
+                    stepSize: 1
+                }
+            }
+        },
+        plugins: {
+            legend: {
+                display: false
+            },
+            title: {
+                display: true,
+                text: business_name + "'s AI Maturity Assessment",
+                font: {
+                    size: 16
+                }
+            }
+        }
+    };
+
+    return (
+        <div className="p-4 bg-white rounded-lg shadow">
+            <Radar data={data} options={options} />
+        </div>
+    );
+};
+
