@@ -21,12 +21,12 @@ export default function Home() {
       </div>
 
       <div className="flex-1 flex items-center justify-center py-12 px-4 sm:px-6 lg:flex-unset lg:px-8 bg-gray-200/90 backdrop-blur-md shadow-2xl">
-        <div className="mx-auto max-w-4xl w-full p-8 bg-white rounded-lg border border-gray-300 shadow-lg overflow-auto transition-transform duration-300 ease-in-out hover:scale-[1.01] hover:shadow-xl">
+        <div className="mx-auto max-w-4xl w-full p-8 bg-white rounded-lg border border-gray-300 shadow-lg overflow-auto transition-transform duration-300 ease-in-out">
           <OpenAIAssistant
             assistantId="asst_F0BXMk3wkyyTWBYzjonmQpTe"
-            greeting={`🚀 Hello! I'm *Aimme Pointsout*, a master AI architect, strategist, and engineer.\n\nToday, I'm here to assist with a detailed assessment of your business' *AI Maturity Model* (AIMM). Are you ready to discover how AI can elevate your operations?\n\nType **'Begin'** to start the assessment! 🚀
+            greeting={`🚀 Hello! I'm *Aimme Pointsout*, a master AI architect, strategist, and engineer.\n\nToday, I'm here to assist with a detailed assessment of your business' *AI Maturity Model* (AIMM). Are you ready to discover how AI can elevate your operations?\n\nType **'Begin'** to start the 20min assessment! 🚀
             `}
-            messageLimit={20}
+            messageLimit={50}
           />
         </div>
       </div>

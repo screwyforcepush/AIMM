@@ -111,8 +111,6 @@ export default function OpenAIAssistant({
                             setStreamingMessage(newStreamingMessage);
                             scrollToBottom();
                         }
-                        else (console.log("No text value in delta event", serverEvent.data.delta.content[0]));
-
                         break;
                 }
             }
@@ -309,7 +307,7 @@ export function RadarChart({ assessment_arr, business_name }) {
     };
 
     return (
-        <div className="p-4 bg-white rounded-lg shadow">
+        <div className="p-4 bg-white rounded-lg shadow radar-chart">
             <Radar data={data} options={options} />
         </div>
     );

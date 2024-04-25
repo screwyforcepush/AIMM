@@ -64,7 +64,6 @@ export async function GET(request:NextRequest) {
         {limit: parseInt(messageLimit)},
     );
 
-    console.log(threadMessages.data)
     // only transmit the data that we need
     const cleanMessages = threadMessages.data.map(m => {
         return {

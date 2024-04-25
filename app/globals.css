@@ -76,3 +76,8 @@
   background-color: slategray; /* Customize thumb color */
   border-radius: 20px; /* Rounded corners */
 }
+
+.radar-chart canvas {
+  vertical-align: baseline !important;
+  display: inline-block !important;
+}
