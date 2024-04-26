@@ -232,9 +232,17 @@ export function OpenAIAssistantMessage({ message }) {
     }
 
 
+    const imageSize = message.content.includes("Aimme Pointsout") ? '20%' : '40px';
+
+    // Inline style for dynamic width control
+    const imageStyle = {
+      width: imageSize,
+      // Additional styles can be added here
+    };
+
     return (
         <div className="flex rounded-lg text-gray-700 bg-white shadow-md m-2 p-4">
-            <div className="flex-none w-10 text-4xl mr-5">
+            <div style={imageStyle} className={`flex-none  text-4xl mr-5`}>
                 {displayRole(message.role)}
             </div>
             <div className="flex-auto overflow-auto px-2">
