@@ -7,8 +7,8 @@ export default function Home() {
   <main className="flex flex-1 flex-col md:flex-row">      <div className="flex-1 d-flex flex-column justify-content-center py-12 px-4 sm:px-6 lg:flex-1 lg:px-8 bg-white/95 backdrop-blur-md shadow-2xl">
         <div className="mx-auto max-w-md space-y-6">
           <div>
-            <h1 className="text-6xl font-bold leading-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-cyan-500">
-              AIM<span className="cyan-400">Me</span>
+            <h1 className="text-6xl font-bold leading-tight ">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-cyan-600">AIM</span><span className="text-cyan-500">Me</span>
             </h1>
             <p className="mt-2 text-center text-xl text-gray-700">
               AI Maturity Model: Business Assessment
