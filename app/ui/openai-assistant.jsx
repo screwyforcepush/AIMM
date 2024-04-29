@@ -30,8 +30,18 @@ export default function OpenAIAssistant({
     const messagesEndRef = useRef(null);
 
     const scrollToBottom = () => {
-        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+        if (messages.length > 0){
+            messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+        }
     }
+
+    const inputRef = useRef();
+
+    useEffect(() => {
+        if (!isLoading) {
+            inputRef.current.focus();
+        }
+    }, [isLoading]);
 
     useEffect(scrollToBottom, [messages, isLoading]);
 
@@ -149,6 +159,7 @@ export default function OpenAIAssistant({
             </div>
             <form onSubmit={handleSubmit} className="m-2 flex">
                 <input
+                    ref={inputRef}
                     disabled={isLoading}
                     className="border rounded-full w-full py-2 px-3 text-gray-700"
                     onChange={handlePromptChange}

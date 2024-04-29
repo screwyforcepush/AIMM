@@ -1,4 +1,5 @@
 import OpenAIAssistant from "@/app/ui/openai-assistant";
+import { RadarChart } from "@/app/ui/openai-assistant";
 
 export default function Home() {
   return (
@@ -7,7 +8,7 @@ export default function Home() {
         <div className="mx-auto max-w-md space-y-6">
           <div>
             <h1 className="text-6xl font-bold leading-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-cyan-500">
-              AIMM
+              AIM<span className="cyan-400">Me</span>
             </h1>
             <p className="mt-2 text-center text-xl text-gray-700">
               AI Maturity Model: Business Assessment
@@ -17,6 +18,7 @@ export default function Home() {
             Understanding your organization&apos;s current AI capabilities is crucial in today&apos;s tech-driven market.<br></br><br></br>Drawing upon established frameworks by industry leaders like <em>IBM</em> and <em>Accenture</em>, we offer assessment through a tailored questionnaire. This tool is designed to pinpoint your operational strengths and areas for growth in AI. 
             </p>
           </div>
+          <RadarChart assessment_arr={[2,3,2,2,4,1]} business_name="Example Company" />
         </div>
       </div>
 
