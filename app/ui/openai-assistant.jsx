@@ -30,7 +30,7 @@ export default function OpenAIAssistant({
     const messagesEndRef = useRef(null);
 
     const scrollToBottom = () => {
-        if (messages.length > 0){
+        if (messages.length > 0) {
             messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
         }
     }
@@ -101,27 +101,32 @@ export default function OpenAIAssistant({
 
             // process each event
             for (const strServerEvent of strServerEvents) {
-                const serverEvent = JSON.parse(strServerEvent);
-                // console.log(serverEvent);
-                switch (serverEvent.event) {
-                    // create new message
-                    case "thread.message.created":
-                        newThreadId = serverEvent.data.thread_id;
-                        setThreadId(serverEvent.data.thread_id);
-                        break;
+                try {
+                    const serverEvent = JSON.parse(strServerEvent);
 
-                    // update streaming message content
-                    case "thread.message.delta":
-                        if (serverEvent.data.delta.content[0].text) {
-                            contentSnapshot += serverEvent.data.delta.content[0].text.value;
-                            const newStreamingMessage = {
-                                ...streamingMessage,
-                                content: contentSnapshot,
-                            };
-                            setStreamingMessage(newStreamingMessage);
-                            scrollToBottom();
-                        }
-                        break;
+                    // console.log(serverEvent);
+                    switch (serverEvent.event) {
+                        // create new message
+                        case "thread.message.created":
+                            newThreadId = serverEvent.data.thread_id;
+                            setThreadId(serverEvent.data.thread_id);
+                            break;
+
+                        // update streaming message content
+                        case "thread.message.delta":
+                            if (serverEvent.data.delta.content[0].text) {
+                                contentSnapshot += serverEvent.data.delta.content[0].text.value;
+                                const newStreamingMessage = {
+                                    ...streamingMessage,
+                                    content: contentSnapshot,
+                                };
+                                setStreamingMessage(newStreamingMessage);
+                                scrollToBottom();
+                            }
+                            break;
+                    }
+                } catch (e) {
+                    console.error("json parse error", e, strServerEvent);
                 }
             }
         }
@@ -212,10 +217,10 @@ function parseContent(content) {
     if (result && result.numbers?.length == 6 && result.text && result.updatedString) {
         return (
             <div>
-            <Markdown>
-                {result.updatedString}
-            </Markdown>
-            {RadarChart({ assessment_arr: result.numbers, business_name: result.text})}
+                <Markdown>
+                    {result.updatedString}
+                </Markdown>
+                {RadarChart({ assessment_arr: result.numbers, business_name: result.text })}
             </div>
         );
     }
@@ -247,8 +252,8 @@ export function OpenAIAssistantMessage({ message }) {
 
     // Inline style for dynamic width control
     const imageStyle = {
-      width: imageSize,
-      // Additional styles can be added here
+        width: imageSize,
+        // Additional styles can be added here
     };
 
     return (
@@ -258,7 +263,7 @@ export function OpenAIAssistantMessage({ message }) {
             </div>
             <div className="flex-auto overflow-auto px-2">
                 <div className="font-roboto text-gray-700" style={{ fontFamily: "'Roboto', sans-serif" }}>
-                        {parseContent(message.content)}
+                    {parseContent(message.content)}
                 </div>
             </div>
         </div>
