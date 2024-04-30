@@ -24,42 +24,49 @@ export default function Home() {
                 Understanding your organization&apos;s current AI capabilities
                 is crucial in today&apos;s tech-driven market.<br></br>
                 <br></br>Drawing upon established frameworks by industry leaders
-                like <a href="https://www.ibm.com/downloads/cas/OB8M18WR" target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">IBM</a> and <a
-                  href="https://www.accenture.com/content/dam/system-files/acom/custom-code/ai-maturity/Accenture-Art-of-AI-Maturity-Report-Global-Revised.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-500 underline"
-                >
-                  Accenture
-                </a>
-                , we offer assessment
+                like <em>IBM</em> and <em>Accenture</em>, we offer assessment
                 through a tailored questionnaire. This tool is designed to
                 pinpoint your operational strengths and areas for growth in AI.
               </p>
             </div>
-<div className="flex">
-    <RadarChart
-        assessment_arr={[3, 2, 3, 4, 3, 3]}
-        business_name="Example Company"
-    />
-<div className="hidden lg:block relative ml-4 h-[330px] overflow-hidden">    <p>
-    Assessment of AI Maturity Model for Example Company:<br></br><br></br>
-<strong>Strategy and Vision:</strong> You mentioned AI is strategic and well-funded in your organization, indicating a clear vision and commitment. However, the actual integration into production appears cautious. Stage: 3
-<br></br>
-<strong>Data Management:</strong> Data quality is described as just okay with notable noise, suggesting challenges in leveraging data as a strategic asset fully. Stage: 2
-<br></br>
-<strong>Technology and Infrastructure:</strong> You’re leveraging major AIaaS and have experimented with models in production, hosted on Databricks. This shows a good level of technological readiness, though not yet fully optimized. Stage: 3
-<br></br>
-<strong>People and Culture:</strong> There is a dedicated training program by AI specialists, which points to a strong AI-adaptive workforce and an AI-ready culture. Stage: 4
-<br></br>
-Governance and Ethics: The presence of a change management board suggests sound governance, though it also introduces delays in AI solution delivery, indicating a focus on risk management that could hinder agility. Stage: 3
-<br></br>
-Performance and Scalability: Monitoring is done through service provider dashboards, showing an awareness and active management but perhaps not a full optimization or proprietary monitoring solution in place yet. Stage: 3
-</p>
-
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white"></div>
-    </div>
-</div>
+            <div className="flex">
+              <RadarChart
+                assessment_arr={[3, 2, 3, 4, 3, 3]}
+                business_name="Example Company"
+              />
+              <div className="hidden lg:block relative ml-4 h-[330px] overflow-hidden">
+                {" "}
+                <p>
+                  Assessment of AI Maturity Model for Example Company:<br></br>
+                  <br></br>
+                  <strong>Strategy and Vision:</strong> You mentioned AI is
+                  strategic and well-funded in your organization, indicating a
+                  clear vision and commitment. However, the actual integration
+                  into production appears cautious. Stage: 3<br></br>
+                  <strong>Data Management:</strong> Data quality is described as
+                  just okay with notable noise, suggesting challenges in
+                  leveraging data as a strategic asset fully. Stage: 2<br></br>
+                  <strong>Technology and Infrastructure:</strong> You’re
+                  leveraging major AIaaS and have experimented with models in
+                  production, hosted on Databricks. This shows a good level of
+                  technological readiness, though not yet fully optimized.
+                  Stage: 3<br></br>
+                  <strong>People and Culture:</strong> There is a dedicated
+                  training program by AI specialists, which points to a strong
+                  AI-adaptive workforce and an AI-ready culture. Stage: 4
+                  <br></br>
+                  Governance and Ethics: The presence of a change management
+                  board suggests sound governance, though it also introduces
+                  delays in AI solution delivery, indicating a focus on risk
+                  management that could hinder agility. Stage: 3<br></br>
+                  Performance and Scalability: Monitoring is done through
+                  service provider dashboards, showing an awareness and active
+                  management but perhaps not a full optimization or proprietary
+                  monitoring solution in place yet. Stage: 3
+                </p>
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white"></div>
+              </div>
+            </div>
           </div>
         </div>
         <div className="flex-1 flex items-center justify-center py-12 px-4 sm:px-6 lg:flex-unset lg:px-8 bg-gray-200/90 backdrop-blur-md shadow-2xl">
