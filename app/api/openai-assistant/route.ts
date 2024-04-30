@@ -6,9 +6,6 @@ import OpenAI from 'openai'
 // and updated here: https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config
 // export const runtime = "edge";
 
-export const config = {
-    runtime: "edge",
-};
 
 // post a new message and stream OpenAI Assistant response
 export async function POST(request:NextRequest) {
