@@ -221,6 +221,7 @@ function parseContent(content) {
                     {result.updatedString}
                 </Markdown>
                 {RadarChart({ assessment_arr: result.numbers, business_name: result.text })}
+                <p>🚀 Would you like some <strong>recommendations</strong> on how to step up your AI game? 🚀</p>
             </div>
         );
     }
