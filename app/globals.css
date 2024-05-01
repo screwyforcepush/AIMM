@@ -81,3 +81,7 @@
   vertical-align: baseline !important;
   display: inline-block !important;
 }
+
+.messages-container li {
+  margin-top: 10px !important;
+}
