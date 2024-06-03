@@ -185,3 +185,17 @@ export type TrafficVisualizationComponentProps = {
     trafficVolume: number;
   }>;
 };
+
+// New types for nodes and edges to support the traffic visualization feature
+export type Node = {
+  id: string;
+  label: string;
+  totalTokens: number;
+  averageTokens: number;
+};
+
+export type Edge = {
+  source: string;
+  target: string;
+  trafficVolume: number;
+};

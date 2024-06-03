@@ -2,8 +2,15 @@
 import React, { useState, useEffect } from 'react';
 import { Bar, Pie, Line } from 'react-chartjs-2';
 import 'chart.js/auto';
-import { AssistantData, TotalStatistics, AggregateStatistics, HighLevelAnalytics, TrafficVisualization } from './types';
+import { AssistantData, TotalStatistics, AggregateStatistics, HighLevelAnalytics, TrafficVisualization, TrafficVisualizationComponentProps } from './types';
 import assistantsData from './assistants-data-example.json';
+
+// Placeholder for dynamic data fetching function
+const fetchData = async () => {
+  // This function would fetch real-time data
+  // For now, it returns static data
+  return assistantsData;
+};
 
 const DataViz = () => {
   const [data, setData] = useState<AssistantData>(assistantsData);
@@ -12,75 +19,27 @@ const DataViz = () => {
   const [view, setView] = useState<'high-level' | 'traffic'>('high-level');
 
   useEffect(() => {
-    // This is where we would fetch real-time data in future updates
+    const fetchAndSetData = async () => {
+      const fetchedData = await fetchData();
+      setData(fetchedData);
+    };
+
+    fetchAndSetData();
   }, []);
 
   const renderHighLevelAnalytics = () => {
-    const totalStatsOptions = {
-      responsive: true,
-      plugins: {
-        legend: {
-          position: 'top' as const,
-        },
-        title: {
-          display: true,
-          text: 'Total Statistics',
-        },
-      },
-    };
-
-    const aggregateStatsOptions = {
-      responsive: true,
-      plugins: {
-        legend: {
-          position: 'top' as const,
-        },
-        title: {
-          display: true,
-          text: 'Aggregate Statistics',
-        },
-      },
-    };
-
-    const totalStatsData = {
-      labels: Object.keys(totalStats),
-      datasets: [
-        {
-          label: 'Total Statistics',
-          data: Object.values(totalStats),
-          backgroundColor: Object.keys(totalStats).map(() => `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 0.5)`),
-        },
-      ],
-    };
-
-    const aggregateStatsData = {
-      labels: Object.keys(aggregateStats).filter(key => key !== 'dropoff_point'),
-      datasets: [
-        {
-          label: 'Aggregate Statistics',
-          data: Object.values(aggregateStats).filter(value => typeof value !== 'object'),
-          backgroundColor: Object.keys(aggregateStats).map(() => `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 0.5)`),
-        },
-      ],
-    };
-
-    return (
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <h2 className="text-lg font-semibold mb-2">Total Statistics</h2>
-          <Bar options={totalStatsOptions} data={totalStatsData} />
-        </div>
-        <div>
-          <h2 className="text-lg font-semibold mb-2">Aggregate Statistics</h2>
-          <Pie options={aggregateStatsOptions} data={aggregateStatsData} />
-        </div>
-      </div>
-    );
+    // Implementation for high-level analytics visualization
   };
 
-  const renderTrafficVisualization = () => {
-    // Placeholder for traffic visualization component
-    return <div>Traffic Visualization Placeholder</div>;
+  const renderTrafficVisualization = (props: TrafficVisualizationComponentProps) => {
+    // Detailed implementation for traffic visualization
+    // Including nodes and edges with interaction data
+    // Utilizing types from `app/ui/types.tsx`
+  };
+
+  const handleSearch = (query: string) => {
+    // Implementation for search feature to filter through message content
+    // Highlight related nodes and edges
   };
 
   return (
@@ -94,7 +53,7 @@ const DataViz = () => {
           Traffic Visualization
         </button>
       </div>
-      {view === 'high-level' ? renderHighLevelAnalytics() : renderTrafficVisualization()}
+      {view === 'high-level' ? renderHighLevelAnalytics() : renderTrafficVisualization({/* props for traffic visualization */})}
     </div>
   );
 };
