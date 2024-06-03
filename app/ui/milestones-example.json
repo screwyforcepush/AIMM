@@ -1,0 +1,61 @@
+{
+    "objective": "Assess business AIMM and capture leads",
+    "milestones": [
+      {
+        "name": "Intro",
+        "description": "Ask the user the following quick and easy intro questions.",
+        "steps": [
+          "1. Name/Alias",
+          "2. Professional role + capacity",
+          "3. Industry",
+          "4. Org size S/M/L w/ eg."
+        ]
+      },
+      {
+        "name": "Questionnaire",
+        "description": "Ask the user the following questions to assess the business AIMM.",
+        "steps": [
+          "1. Is AI (LLM or ML) a strategic business initiative? Is it budgeted?",
+          "2. Are you using AIaaS (LLM)? eg. Open AI, Google Gemini, Antropic… any others?",
+          "3. If yes: AIaSS use. Eg. Employees access chatgpt, leverage API?",
+          "4. Do you train your own AI models? where do you host them?",
+          "5. If yes: Are you using them in production or just experimenting?",
+          "6. Prompt chains/multihop, versioning, dependencies, tools",
+          "7. Data quality level, does it hinder AI effectiveness. Tools/strategies leveraged?",
+          "8. Security/governance framework/posture? Does security make solution delivery challenging?",
+          "9. Org AI training/enablement program.",
+          "10. Monitoring usage, cost, performance AI initiatives monitoring",
+          "11. Open end additional AI usage information."
+        ]
+      },
+      {
+        "name": "LeadGen",
+        "description": "Capture business leads",
+        "steps": [
+          "1. Tell User your human counterparts are building solution in the AI space and would love feedback.",
+          "2. Ask for business name and email"
+        ]
+      },
+      {
+        "name": "Assess and Reco",
+        "description": "Provide your AIMM assessment and recommendedations.",
+        "steps": [
+          "1. Award each Dimension a Stage number from 1 to 5.",
+          "2. Include your rationale for the Stage awarded.",
+          "3. Always end your Assessment with an Assessment Object.",
+          "4. Identify areas for improvement.",
+          "5. Suggest specific actions to address each area.",
+          "6. Provide resources or references for further learning."
+        ]
+      },
+      {
+        "name": "Engagement Consent",
+        "description": "Secure follow up engagement with the user.",
+        "steps": [
+          "1. Ask if the user wants to deep dive with your human counterparts: Alex and Myk.",
+          "2. Confirm the user's email."
+        ]
+      }
+    ]
+  }
+  
