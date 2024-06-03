@@ -179,6 +179,34 @@ export type Edge = {
   trafficVolume: number;
 };
 
+// New types for visualization components
+export type TrendLineData = {
+  labels: string[];
+  datasets: Array<{
+    label: string;
+    data: number[];
+    fill: boolean;
+    borderColor: string;
+    tension: number;
+  }>;
+};
+
+export type GaugeChartData = {
+  datasets: Array<{
+    data: number[];
+    backgroundColor: string[];
+  }>;
+};
+
+export type ConversionFunnelData = {
+  labels: string[];
+  datasets: Array<{
+    data: number[];
+    backgroundColor: string[];
+    borderColor: string[];
+    borderWidth: number;
+  }>;
+};
 
 // Parent Type for Assistant Data
 export type AssistantData = {
