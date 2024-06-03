@@ -1,73 +1,41 @@
-# OpenAI Assistant Starter Kit
+# AI Maturity Model (AIMM) Assessment Application
 
-Try the live version of this application by visiting:
+Welcome to the AI Maturity Model (AIMM) Assessment Application, a tool designed to help organizations evaluate their AI capabilities and maturity. This application guides users through a series of questions, generating a personalized AI maturity assessment and providing recommendations for improvement.
 
-[OpenAI Assistant Starter Kit](https://openai-assistant-starter-kit.vercel.app/)
+## Application Overview
 
-![screen capture](screen-capture.png)
+The AIMM Assessment Application leverages advanced AI algorithms to analyze responses and generate insights into an organization's AI maturity across several dimensions, including strategy and vision, data management, technology and infrastructure, people and culture, governance and ethics, and performance and scalability.
 
+## Getting Started
 
-The **OpenAI Assistant Starter Kit** is a fully-functional OpenAI chat application that illustrates:
+To use the AIMM Assessment Application, follow these steps:
 
-* Streaming OpenAI Assistant responses from the server to deliver realtime responses.
-* Customizing the appearance and behavior of your OpenAI chat application.
-* Handling a long thread of messages without losing context.
-* Designing an OpenAI app to work on both mobile and desktop.
+1. Clone the repository to your local machine.
+2. Change the assistant_key variable to point to you OAI assistant.
+3. Install the required dependencies by running `npm install`.
+4. Start the application by executing `npm run dev`.
+5. Open your web browser and navigate to `http://localhost:3000` to access the application.
 
-This Starter Kit was built using NextJS + ReactJS + TypeScript + OpenAI. 
+## Using the Application
 
-## Configure Your Assistant
+The application interface is intuitive and user-friendly. Users are prompted to answer a series of questions related to their organization's AI initiatives. Upon completion, the application generates a comprehensive AI Maturity Model assessment, visualized through an interactive radar chart. Additionally, users receive tailored recommendations to enhance their AI maturity.
 
-Before you can use this Starter Kit, you must first configure an OpenAI Assistant by visiting the [OpenAI Playground](https://platform.openai.com/playground?mode=assistant). Create a new OpenAI Assistant by entering an Assistant name, instructions, and model.
+## Features
 
-![screen capture](create-new-assistant.png)
+- **Interactive Assessment**: Engage with a dynamic questionnaire designed to capture the nuances of your organization's AI capabilities.
+- **Personalized Insights**: Receive a detailed analysis of your AI maturity across key dimensions.
+- **Actionable Recommendations**: Gain access to customized advice aimed at advancing your AI maturity.
+- **Visualized Results**: Explore your assessment results through an interactive radar chart for easy interpretation.
 
-After you create your new Assistant, make note of the Assistant Id. You'll need this Id to build a UI for your Assistant using the Starter Kit. 
+## Contributing
 
-## Downloading and Running the Code Locally
+We welcome contributions from the community. If you're interested in enhancing the AIMM Assessment Application or have suggestions for improvement, please refer to our contribution guidelines.
 
-Complete these three steps to download and run the **OpenAI Assistant Starter Kit** locally.
+## License
 
-First, create a new NextJS app that uses the **OpenAI Assistant Starter Kit** as a template:
+This project is licensed under the MIT License. See the LICENSE file for more details.
 
-```bash
-npx create-next-app@latest openai-assistant-starter-kit --use-npm --example "https://github.com/Superexpert/openai-assistant-starter-kit"
-```
+## Acknowledgments
 
-In your new folder, run the following command to get all of your npm packages:
+This project was inspired by the need for organizations to effectively assess and improve their AI capabilities. We thank all contributors and users for their support and feedback.
 
-```
-npm install
-```
-
-Second, ensure that you have configured an OpenAI API Key on your computer. You can run the following command from Terminal in MacOS:
-
-```bash
-nano ~/.zshrc
-```
-Add your OpenAI API Key:
-```
-export OPENAI_API_KEY='your-api-key-here'
-```
-And then hit Ctrl+O to write the changes, followed by Ctrl+X to close the editor. Restart Terminal so it can pick up on the new environment variable.
-
-Next, you need to add your Assistant Id to the Starter Kit. Open the app/page.tsx file and modify the assistantId prop associated with the OpenAIAssistant ReactJS component:
-
-```
-<OpenAIAssistant 
-    assistantId="asst_gx3Htc0gLVNlpBQKLoefkXZZ"
-    greeting="I am a helpful chat assistant. How can I help you?"
-    messageLimit={10}
-/>
-```
-
-Finally, run the app by entering the following command in Terminal:
-
-```
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-## Learn More
-To learn more about building OpenAI applications, consider hiring [Superexpert Training](https://superexpert.com) to provide an OpenAI workshop for your company.
