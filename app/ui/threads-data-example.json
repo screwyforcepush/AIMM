@@ -1,0 +1,797 @@
+{
+    "total": {
+        "thread_count": 59,
+        "engagement_duration": 18557.0,
+        "message_count": 766,
+        "tokens": 1546445,
+        "highest_thread_tokens": 85011,
+        "leads": 9
+    },
+    "aggregate": {
+        "message_count": 12.983050847457626,
+        "engagement_duration": 314.52542372881356,
+        "tokens": 26210.93220338983,
+        "cognitive_load": "Medium",
+        "sentiment": "Neutral",
+        "engagement": "Engaged",
+        "dropoff_point": {
+            "Intro": {
+                "total_count": 23,
+                "steps": {
+                    "1. Name/Alias": 10,
+                    "2. Professional role + capacity": 8,
+                    "4. Org size S/M/L w/ eg.": 4,
+                    "3. Industry": 1
+                }
+            },
+            "Questionnaire": {
+                "total_count": 12,
+                "steps": {
+                    "2. Are you using AIaaS (LLM)? eg. Open AI, Google Gemini, Antropic… any others?": 4,
+                    "11. Open end additional AI usage information.": 2,
+                    "7. Data quality level, does it hinder AI effectiveness. Tools/strategies leveraged?": 2,
+                    "8. Security/governance framework/posture? Does security make solution delivery challenging?": 1,
+                    "10. Monitoring usage, cost, performance AI initiatives monitoring": 1,
+                    "1. Is AI (LLM or ML) a strategic business initiative? Is it budgeted?": 1,
+                    "4. Do you train your own AI models? where do you host them?": 1
+                }
+            },
+            "Engagement Consent": {
+                "total_count": 10,
+                "steps": {
+                    "2. Confirm the user's email.": 10
+                }
+            },
+            "Assess and Reco": {
+                "total_count": 4,
+                "steps": {
+                    "6. Provide resources or references for further learning.": 2,
+                    "5. Suggest specific actions to address each area.": 1,
+                    "2. Include your rationale for the Stage awarded.": 1
+                }
+            }
+        }
+    },
+    "threads": [
+        {
+            "thread_id": "thread_IVkHiheVmFWrBjHmrebioZcN",
+            "messages": [
+                {
+                    "role": "user",
+                    "message": "begin",
+                    "tokens": 0,
+                    "assessment": {
+                        "init": true,
+                        "intent": null,
+                        "milestone_relevance": null,
+                        "prompt_hack_attempt": null
+                    }
+                },
+                {
+                    "role": "assistant",
+                    "message": "🚀 Fantastic! Let's kick things off with a few quick questions to better understand your scenario. Shall we? First up:\n\n**What's your name or alias?** 🚀",
+                    "tokens": 3606,
+                    "assessment": {
+                        "milestone_details": {
+                            "name": "Intro",
+                            "description": "Ask the user the following quick and easy intro questions.",
+                            "steps": [
+                                "1. Name/Alias"
+                            ]
+                        },
+                        "cognitive_load": "Low",
+                        "milestone_relevance": "Focused",
+                        "deviation_trigger": null,
+                        "progression_status": "Progressive"
+                    }
+                },
+                {
+                    "role": "user",
+                    "message": "John",
+                    "tokens": 0,
+                    "assessment": {
+                        "intent": "Confirmation",
+                        "complexity": "Simple",
+                        "sentiment": "Neutral",
+                        "engagement": "Engaged"
+                    }
+                },
+                {
+                    "role": "assistant",
+                    "message": "🚀 Great to meet you, John! Next question:\n\n**What is your professional role and capacity?** 🚀",
+                    "tokens": 3641,
+                    "assessment": {
+                        "milestone_details": {
+                            "name": "Intro",
+                            "description": "Ask the user the following quick and easy intro questions.",
+                            "steps": [
+                                "2. Professional role + capacity"
+                            ]
+                        },
+                        "cognitive_load": "Low",
+                        "milestone_relevance": "Focused",
+                        "deviation_trigger": null,
+                        "progression_status": "Progressive"
+                    }
+                },
+                {
+                    "role": "user",
+                    "message": "IT Manager",
+                    "tokens": 0,
+                    "assessment": {
+                        "intent": "Confirmation",
+                        "complexity": "Simple",
+                        "sentiment": "Neutral",
+                        "engagement": "Engaged"
+                    }
+                },
+                {
+                    "role": "assistant",
+                    "message": "🚀 Excellent, John! As an IT Manager, you're in the perfect spot to discuss this. Now, could you share:\n\n**Which industry does your organization operate in?** 🚀",
+                    "tokens": 3692,
+                    "assessment": {
+                        "milestone_details": {
+                            "name": "Intro",
+                            "description": "Ask the user the following quick and easy intro questions.",
+                            "steps": [
+                                "3. Industry"
+                            ]
+                        },
+                        "cognitive_load": "Medium",
+                        "milestone_relevance": "Minor Deviation",
+                        "deviation_trigger": null,
+                        "progression_status": "Progressive"
+                    }
+                },
+                {
+                    "role": "user",
+                    "message": "Government",
+                    "tokens": 0,
+                    "assessment": {
+                        "intent": "Confirmation",
+                        "complexity": "Simple",
+                        "sentiment": "Neutral",
+                        "engagement": "Engaged"
+                    }
+                },
+                {
+                    "role": "assistant",
+                    "message": "🚀 Interesting sector! Government roles are essential for integrating tech at scale. Finally, for this introductory part:\n\n**What’s the size of your organization? Please specify whether it's small (S), medium (M), or large (L). You can also give a rough number of employees for context.** 🚀",
+                    "tokens": 3767,
+                    "assessment": {
+                        "milestone_details": {
+                            "name": "Intro",
+                            "description": "Ask the user the following quick and easy intro questions.",
+                            "steps": [
+                                "4. Org size S/M/L w/ eg."
+                            ]
+                        },
+                        "cognitive_load": "Medium",
+                        "milestone_relevance": "Focused",
+                        "deviation_trigger": null,
+                        "progression_status": "Progressive"
+                    }
+                },
+                {
+                    "role": "user",
+                    "message": "L",
+                    "tokens": 0,
+                    "assessment": {
+                        "intent": "Confirmation",
+                        "complexity": "Simple",
+                        "sentiment": "Neutral",
+                        "engagement": "Passive"
+                    }
+                },
+                {
+                    "role": "assistant",
+                    "message": "🚀 Thanks, John! Now that we've got the basics, let's dive into the AI Maturity Model assessment.\n\n**Is AI (LLM or ML) a strategic business initiative within your organization? Is it budgeted for?** 🚀",
+                    "tokens": 3829,
+                    "assessment": {
+                        "milestone_details": {
+                            "name": "Questionnaire",
+                            "description": "Ask the user the following questions to assess the business AIMM.",
+                            "steps": [
+                                "1. Is AI (LLM or ML) a strategic business initiative? Is it budgeted?"
+                            ]
+                        },
+                        "cognitive_load": "Medium",
+                        "milestone_relevance": "Focused",
+                        "deviation_trigger": null,
+                        "progression_status": "Progressive"
+                    }
+                },
+                {
+                    "role": "user",
+                    "message": "Yes and No",
+                    "tokens": 0,
+                    "assessment": {
+                        "intent": "Confirmation",
+                        "complexity": "Simple",
+                        "sentiment": "Mixed",
+                        "engagement": "Engaged"
+                    }
+                },
+                {
+                    "role": "assistant",
+                    "message": "🚀 Got it! Moving on:\n\n**Are you using AI as a Service (AIaaS) from providers like OpenAI, Google, Antropic, etc.? If yes, could you specify how? For example, do employees access ChatGPT, leverage APIs, or any other uses?** 🚀",
+                    "tokens": 3904,
+                    "assessment": {
+                        "milestone_details": {
+                            "name": "Questionnaire",
+                            "description": "Ask the user the following questions to assess the business AIMM.",
+                            "steps": [
+                                "3. If yes: AIaSS use. Eg. Employees access chatgpt, leverage API?"
+                            ]
+                        },
+                        "cognitive_load": "Medium",
+                        "milestone_relevance": "Focused",
+                        "deviation_trigger": null,
+                        "progression_status": "Progressive"
+                    }
+                },
+                {
+                    "role": "user",
+                    "message": "No, but likely staff members are using ChatGPTT without authorization",
+                    "tokens": 0,
+                    "assessment": {
+                        "intent": "Confirmation",
+                        "complexity": "Intermediate",
+                        "sentiment": "Negative",
+                        "engagement": "Engaged"
+                    }
+                },
+                {
+                    "role": "assistant",
+                    "message": "🚀 Noted! That’s an interesting challenge. Now, let’s learn about model training:\n\n**Do you train your own AI models? If yes, where do you host them?** 🚀",
+                    "tokens": 3969,
+                    "assessment": {
+                        "milestone_details": {
+                            "name": "Questionnaire",
+                            "description": "Ask the user the following questions to assess the business AIMM.",
+                            "steps": [
+                                "4. Do you train your own AI models? where do you host them?"
+                            ]
+                        },
+                        "cognitive_load": "Medium",
+                        "milestone_relevance": "Focused",
+                        "deviation_trigger": null,
+                        "progression_status": "Progressive"
+                    }
+                },
+                {
+                    "role": "user",
+                    "message": "No, as stipulated we do not use AI models or any AIaaS , but likely staff are using ChatGPT without authorization",
+                    "tokens": 0,
+                    "assessment": {
+                        "intent": "Confirmation",
+                        "complexity": "Intermediate",
+                        "sentiment": "Negative",
+                        "engagement": "Engaged"
+                    }
+                },
+                {
+                    "role": "assistant",
+                    "message": "🚀 Understood, let's explore the data aspect:\n\n**What would you say about the quality level of your data? Does it significantly hinder AI effectiveness? Can you share any tools or strategies you leverage to manage data quality?** 🚀",
+                    "tokens": 4054,
+                    "assessment": {
+                        "milestone_details": {
+                            "name": "Questionnaire",
+                            "description": "Ask the user the following questions to assess the business AIMM.",
+                            "steps": [
+                                "7. Data quality level, does it hinder AI effectiveness. Tools/strategies leveraged?"
+                            ]
+                        },
+                        "cognitive_load": "Medium",
+                        "milestone_relevance": "Focused",
+                        "deviation_trigger": null,
+                        "progression_status": "Progressive"
+                    }
+                },
+                {
+                    "role": "user",
+                    "message": "We dont have tools for AI, this is exploratory at this stage ",
+                    "tokens": 0,
+                    "assessment": {
+                        "intent": "Confirmation",
+                        "complexity": "Simple",
+                        "sentiment": "Neutral",
+                        "engagement": "Engaged"
+                    }
+                },
+                {
+                    "role": "assistant",
+                    "message": "🚀 That's quite clear, thanks for detailing that out! Moving on to security:\n\n**Could you describe your security and governance framework or posture? Does your current security protocol make delivering AI solutions challenging?** 🚀",
+                    "tokens": 4123,
+                    "assessment": {
+                        "milestone_details": {
+                            "name": "Questionnaire",
+                            "description": "Ask the user the following questions to assess the business AIMM.",
+                            "steps": [
+                                "8. Security/governance framework/posture? Does security make solution delivery challenging?"
+                            ]
+                        },
+                        "cognitive_load": "Medium",
+                        "milestone_relevance": "Focused",
+                        "deviation_trigger": null,
+                        "progression_status": "Progressive"
+                    }
+                },
+                {
+                    "role": "user",
+                    "message": "we adhere to all Australian Government security governance and frameworks, do you know how they would apply to the AI solutions you are proposing? ",
+                    "tokens": 0,
+                    "assessment": {
+                        "intent": "Inquiry",
+                        "complexity": "Advanced",
+                        "sentiment": "Positive",
+                        "engagement": "Engaged"
+                    }
+                },
+                {
+                    "role": "assistant",
+                    "message": "🚀 Understanding government-specific security frameworks is crucial for compliant AI deployment. The Australian Government has strict standards that need to be considered, especially regarding data privacy, security, and ethical AI use. But let's continue with our current focus and address that as we proceed.\n\n**Does your organization have an AI training or enablement program for your employees?** 🚀",
+                    "tokens": 4232,
+                    "assessment": {
+                        "milestone_details": {
+                            "name": "Questionnaire",
+                            "description": "Ask the user the following questions to assess the business AIMM.",
+                            "steps": [
+                                "9. Org AI training/enablement program."
+                            ]
+                        },
+                        "cognitive_load": "Medium",
+                        "milestone_relevance": "Minor Deviation",
+                        "deviation_trigger": null,
+                        "progression_status": "Progressive"
+                    }
+                },
+                {
+                    "role": "user",
+                    "message": "No training or enablement programs",
+                    "tokens": 0,
+                    "assessment": {
+                        "intent": "Confirmation",
+                        "complexity": "Simple",
+                        "sentiment": "Neutral",
+                        "engagement": "Engaged"
+                    }
+                },
+                {
+                    "role": "assistant",
+                    "message": "🚀 Thanks for clarifying! Next up:\n\n**How do you monitor the usage, cost, and performance of any ongoing AI initiatives, if at all?** 🚀",
+                    "tokens": 4283,
+                    "assessment": {
+                        "milestone_details": {
+                            "name": "Questionnaire",
+                            "description": "Ask the user the following questions to assess the business AIMM.",
+                            "steps": [
+                                "10. Monitoring usage, cost, performance AI initiatives monitoring"
+                            ]
+                        },
+                        "cognitive_load": "Medium",
+                        "milestone_relevance": "Focused",
+                        "deviation_trigger": null,
+                        "progression_status": "Progressive"
+                    }
+                },
+                {
+                    "role": "user",
+                    "message": "We dont have AI tooling, so currently the performance is not monitored, however, assume the cost of compute will go up when we invest in AI tools",
+                    "tokens": 0,
+                    "assessment": {
+                        "intent": "Confirmation",
+                        "complexity": "Intermediate",
+                        "sentiment": "Neutral",
+                        "engagement": "Engaged"
+                    }
+                },
+                {
+                    "role": "assistant",
+                    "message": "🚀 Acknowledged, John! Let's round out the questionnaire with one last question:\n\n**Do you have any additional information you would like to share about how AI is currently being used or considered within your organization?** 🚀",
+                    "tokens": 4371,
+                    "assessment": {
+                        "milestone_details": {
+                            "name": "Questionnaire",
+                            "description": "Ask the user the following questions to assess the business AIMM.",
+                            "steps": [
+                                "11. Open end additional AI usage information."
+                            ]
+                        },
+                        "cognitive_load": "Low",
+                        "milestone_relevance": "Focused",
+                        "deviation_trigger": null,
+                        "progression_status": "Progressive"
+                    }
+                },
+                {
+                    "role": "user",
+                    "message": "no",
+                    "tokens": 0,
+                    "assessment": {
+                        "intent": "Confirmation",
+                        "complexity": "Simple",
+                        "sentiment": "Neutral",
+                        "engagement": "Passive"
+                    }
+                },
+                {
+                    "role": "assistant",
+                    "message": "🚀 Thanks for all the details, John! Let’s move on to summarizing and assessing your organization's AI Maturity across different dimensions based on your responses. Here we go:\n\n1. **Strategy and Vision**: It appears AI is recognized at a strategic level but lacks specific budget allocation and a clear roadmap integrated with business goals. Thus, I would place you at a Stage 1 (Exploring).\n   \n2. **Data Management**: Since no tools or strategies are currently utilized for data quality specifically for AI, and data quality management is not yet targeted towards AI application, this aligns with Stage 1 (Exploring).\n\n3. **Technology and Infrastructure**: As there are no AI models or AIaaS solutions officially in use, and based on your input, it seems there’s no formal infrastructure for AI deployment yet. This aligns with Stage 1 (Exploring).\n\n4. **People and Culture**: Without any AI training or enablement programs in place, your organization seems to be in the initial stages of cultivating an AI-ready culture, placing you at Stage 1 (Exploring).\n\n5. **Governance and Ethics**: While you adhere to stringent government security and governance frameworks, translating these into AI-specific governance and ethics hasn't been detailed yet, suggesting an initial stage, thus Stage 1 (Exploring).\n\n6. **Performance and Scalability**: The absence of monitoring tools and unutilized AI shows there’s minimal foundation to gauge AI’s performance or scalability currently, fitting Stage 1 (Exploring).\n\n### **Assessment Object:**\nASSESSMENT_RESULT={[1,1,1,1,1,1],\"Your Government Organization\"}\n\nNow, let's discuss some targeted recommendations to elevate your AI Maturity stages across these dimensions:\n\n1. **Strategy and Vision**: Start formulating a specific AI strategy aligned with key organizational goals. Consider holding workshops and strategic meetings to outline potential AI use cases.\n\n2. **Data Management**: Begin implementing basic data management tools and protocols focused on ensuring data quality for future AI applications.\n\n3. **Technology and Infrastructure**: Look into AIaaS to start experimenting with AI capabilities without needing substantial initial investments in infrastructure.\n\n4. **People and Culture**: Develop introductory AI literacy programs and consider partnerships with educational institutions or online platforms to provide AI training.\n\n5. **Governance and Ethics**: Extend existing governance frameworks to include AI-specific policies. Start with AI ethics guidelines, considering data privacy and usage.\n\n6. **Performance and Scalability**: As you explore AI tools, set up basic monitoring frameworks for early pilots to understand cost, usage, and performance impacts.\n\n🚀 Would you like to explore these steps further with my human counterparts, Alex and Myk? They can dive deeper to craft a tailored AI integration plan for you. Confirm your email if you're interested! 🚀",
+                    "tokens": 4952,
+                    "assessment": {
+                        "milestone_details": {
+                            "name": "Assess and Reco",
+                            "description": "Provide your AIMM assessment and recommendedations.",
+                            "steps": [
+                                "1. Award each Dimension a Stage number from 1 to 5.",
+                                "2. Include your rationale for the Stage awarded.",
+                                "3. Always end your Assessment with an Assessment Object.",
+                                "4. Identify areas for improvement.",
+                                "5. Suggest specific actions to address each area.",
+                                "6. Provide resources or references for further learning."
+                            ]
+                        },
+                        "cognitive_load": "High",
+                        "milestone_relevance": "Focused",
+                        "deviation_trigger": null,
+                        "progression_status": "Progressive"
+                    }
+                },
+                {
+                    "role": "user",
+                    "message": "yes",
+                    "tokens": 0,
+                    "assessment": {
+                        "intent": "Confirmation",
+                        "complexity": "Simple",
+                        "sentiment": "Positive",
+                        "engagement": "Engaged"
+                    }
+                },
+                {
+                    "role": "assistant",
+                    "message": "🚀 Fantastic, John! Could you please confirm your business name and the best email address to reach you? This way, Alex and Myk can get in touch with specialized assistance to advance your organization's AI journey. 🚀",
+                    "tokens": 5009,
+                    "assessment": {
+                        "milestone_details": {
+                            "name": "Engagement Consent",
+                            "description": "Secure follow up engagement with the user.",
+                            "steps": [
+                                "1. Ask if the user wants to deep dive with your human counterparts: Alex and Myk.",
+                                "2. Confirm the user's email."
+                            ]
+                        },
+                        "cognitive_load": "Low",
+                        "milestone_relevance": "Focused",
+                        "deviation_trigger": null,
+                        "progression_status": "Progressive"
+                    }
+                }
+            ],
+            "started_time": "20240521105104",
+            "finished_time": "20240521104513",
+            "model": "gpt-4-turbo",
+            "cog_load_majority": "Medium",
+            "sentiment_majority": "Neutral",
+            "engagement_majority": "Engaged",
+            "highest_step": {
+                "milestone": "Engagement Consent",
+                "step": "2. Confirm the user's email."
+            },
+            "message_count": 28,
+            "engagement_duration": 351.0,
+            "tokens": 57432,
+            "email": null
+        },
+        {
+            "thread_id": "thread_4OBTOTUoH1XoYU79rmJog418",
+            "messages": [
+                {
+                    "role": "user",
+                    "message": "Begin",
+                    "tokens": 0,
+                    "assessment": {
+                        "init": true,
+                        "intent": null,
+                        "milestone_relevance": null,
+                        "prompt_hack_attempt": null
+                    }
+                },
+                {
+                    "role": "assistant",
+                    "message": "🚀 Let's kick off your AI Maturity Model assessment with a few easy warm-up questions! First, what's your name or alias? 🚀",
+                    "tokens": 3600,
+                    "assessment": {
+                        "milestone_details": {
+                            "name": "Intro",
+                            "description": "Ask the user the following quick and easy intro questions.",
+                            "steps": [
+                                "1. Name/Alias"
+                            ]
+                        },
+                        "cognitive_load": "Low",
+                        "milestone_relevance": "Focused",
+                        "deviation_trigger": null,
+                        "progression_status": "Progressive"
+                    }
+                },
+                {
+                    "role": "user",
+                    "message": "Joe Blogs",
+                    "tokens": 0,
+                    "assessment": {
+                        "intent": "Confirmation",
+                        "complexity": "Simple",
+                        "sentiment": "Positive",
+                        "engagement": "Engaged"
+                    }
+                },
+                {
+                    "role": "assistant",
+                    "message": "🚀 Great to meet you, Joe Blogs! Next, could you tell me about your professional role and capacity in the organization? 🚀",
+                    "tokens": 3640,
+                    "assessment": {
+                        "milestone_details": {
+                            "name": "Intro",
+                            "description": "Ask the user the following quick and easy intro questions.",
+                            "steps": [
+                                "2. Professional role + capacity"
+                            ]
+                        },
+                        "cognitive_load": "Medium",
+                        "milestone_relevance": "Focused",
+                        "deviation_trigger": null,
+                        "progression_status": "Progressive"
+                    }
+                },
+                {
+                    "role": "user",
+                    "message": "Strategist and product owner",
+                    "tokens": 0,
+                    "assessment": {
+                        "intent": "Confirmation",
+                        "complexity": "Simple",
+                        "sentiment": "Neutral",
+                        "engagement": "Engaged"
+                    }
+                },
+                {
+                    "role": "assistant",
+                    "message": "🚀 Fantastic role, Joe Blogs! Now, what industry does your organization operate in? 🚀",
+                    "tokens": 3676,
+                    "assessment": {
+                        "milestone_details": {
+                            "name": "Intro",
+                            "description": "Ask the user the following quick and easy intro questions.",
+                            "steps": [
+                                "3. Industry"
+                            ]
+                        },
+                        "cognitive_load": "Low",
+                        "milestone_relevance": "Major Deviation",
+                        "deviation_trigger": "User Tangent",
+                        "progression_status": "Progressive"
+                    }
+                },
+                {
+                    "role": "user",
+                    "message": "Solution Implementation and technology consulting",
+                    "tokens": 0,
+                    "assessment": {
+                        "intent": "Confirmation",
+                        "complexity": "Simple",
+                        "sentiment": "Neutral",
+                        "engagement": "Engaged"
+                    }
+                },
+                {
+                    "role": "assistant",
+                    "message": "🚀 Interesting industry! Lastly, could you tell me the size of your organization? Please classify it as either small (S), medium (M), or large (L). For context:\n- Small (S): Fewer than 50 employees\n- Medium (M): 50 - 250 employees\n- Large (L): More than 250 employees 🚀",
+                    "tokens": 3765,
+                    "assessment": {
+                        "milestone_details": {
+                            "name": "Intro",
+                            "description": "Ask the user the following quick and easy intro questions.",
+                            "steps": [
+                                "4. Org size S/M/L w/ eg."
+                            ]
+                        },
+                        "cognitive_load": "Medium",
+                        "milestone_relevance": "Focused",
+                        "deviation_trigger": null,
+                        "progression_status": "Progressive"
+                    }
+                },
+                {
+                    "role": "user",
+                    "message": "L",
+                    "tokens": 0,
+                    "assessment": {
+                        "intent": "Confirmation",
+                        "complexity": "Simple",
+                        "sentiment": "Neutral",
+                        "engagement": "Engaged"
+                    }
+                },
+                {
+                    "role": "assistant",
+                    "message": "🚀 Thanks for sharing, Joe Blogs! Now, let's move into the AI Maturity Model Questionnaire. \n\nFirst question: Is AI (LLM or ML) considered a strategic business initiative in your organization? Is it included in the budget? 🚀",
+                    "tokens": 3829,
+                    "assessment": {
+                        "milestone_details": {
+                            "name": "Questionnaire",
+                            "description": "Ask the user the following questions to assess the business AIMM.",
+                            "steps": [
+                                "1. Is AI (LLM or ML) a strategic business initiative? Is it budgeted?"
+                            ]
+                        },
+                        "cognitive_load": "Medium",
+                        "milestone_relevance": "Focused",
+                        "deviation_trigger": null,
+                        "progression_status": "Progressive"
+                    }
+                },
+                {
+                    "role": "user",
+                    "message": "Yes. Budget unknown",
+                    "tokens": 0,
+                    "assessment": {
+                        "intent": "Confirmation",
+                        "complexity": "Simple",
+                        "sentiment": "Positive",
+                        "engagement": "Engaged or Passive"
+                    }
+                },
+                {
+                    "role": "assistant",
+                    "message": "🚀 Noted! Are you currently using AI as a Service (AIaaS) platforms, such as OpenAI, Google Gemini, Antropic, or any others? 🚀",
+                    "tokens": 3879,
+                    "assessment": {
+                        "milestone_details": {
+                            "name": "Questionnaire",
+                            "description": "Ask the user the following questions to assess the business AIMM.",
+                            "steps": [
+                                "2. Are you using AIaaS (LLM)? eg. Open AI, Google Gemini, Antropic… any others?"
+                            ]
+                        },
+                        "cognitive_load": "Medium",
+                        "milestone_relevance": "Focused",
+                        "deviation_trigger": null,
+                        "progression_status": "Progressive"
+                    }
+                },
+                {
+                    "role": "user",
+                    "message": "Individuals are using this but nothing has been established company wide",
+                    "tokens": 0,
+                    "assessment": {
+                        "intent": "Confirmation",
+                        "complexity": "Intermediate",
+                        "sentiment": "Neutral",
+                        "engagement": "Engaged"
+                    }
+                },
+                {
+                    "role": "assistant",
+                    "message": "🚀 Understood. Do you train your own AI models, and if so, where do you host them? 🚀",
+                    "tokens": 3926,
+                    "assessment": {
+                        "milestone_details": {
+                            "name": "Questionnaire",
+                            "description": "Ask the user the following questions to assess the business AIMM.",
+                            "steps": [
+                                "4. Do you train your own AI models? where do you host them?"
+                            ]
+                        },
+                        "cognitive_load": "Medium",
+                        "milestone_relevance": "Focused",
+                        "deviation_trigger": null,
+                        "progression_status": "Progressive"
+                    }
+                },
+                {
+                    "role": "user",
+                    "message": "Yes, there are some currently being trained. I’m unsure where they are hosted",
+                    "tokens": 0,
+                    "assessment": {
+                        "intent": "Confirmation",
+                        "complexity": "Intermediate",
+                        "sentiment": "Positive",
+                        "engagement": "Engaged"
+                    }
+                },
+                {
+                    "role": "assistant",
+                    "message": "🚀 Got it! Are those AI models being used in production, or are they still in the experimentation phase? 🚀",
+                    "tokens": 3977,
+                    "assessment": {
+                        "milestone_details": {
+                            "name": "Questionnaire",
+                            "description": "Ask the user the following questions to assess the business AIMM.",
+                            "steps": [
+                                "5. If yes: Are you using them in production or just experimenting?"
+                            ]
+                        },
+                        "cognitive_load": "Low",
+                        "milestone_relevance": "Focused",
+                        "deviation_trigger": null,
+                        "progression_status": "Progressive"
+                    }
+                },
+                {
+                    "role": "user",
+                    "message": "Experimentation",
+                    "tokens": 0,
+                    "assessment": {
+                        "intent": "Confirmation",
+                        "complexity": "Simple",
+                        "sentiment": "Positive",
+                        "engagement": "Engaged"
+                    }
+                },
+                {
+                    "role": "assistant",
+                    "message": "🚀 Thanks for the clarification! Now, can you tell me about the data quality level in your organization? Does it hinder AI effectiveness, and what tools or strategies are you leveraging to manage data quality? 🚀",
+                    "tokens": 4032,
+                    "assessment": {
+                        "milestone_details": {
+                            "name": "Questionnaire",
+                            "description": "Ask the user the following questions to assess the business AIMM.",
+                            "steps": [
+                                "7. Data quality level, does it hinder AI effectiveness. Tools/strategies leveraged?"
+                            ]
+                        },
+                        "cognitive_load": "Medium",
+                        "milestone_relevance": "Focused",
+                        "deviation_trigger": null,
+                        "progression_status": "Progressive"
+                    }
+                },
+                {
+                    "role": "user",
+                    "message": "I haven’t been involved enough to understand what tools are used however, data quality is still be refined",
+                    "tokens": 0,
+                    "assessment": {
+                        "intent": "Confirmation",
+                        "complexity": "Intermediate",
+                        "sentiment": "Neutral",
+                        "engagement": "Engaged"
+                    }
+                },
+                {
+                    "role": "assistant",
+                    "message": "🚀 Alright, no worries! Next question: What kind of security or governance framework or posture does your organization employ with AI? Does this security stance make AI solution delivery challenging? 🚀",
+                    "tokens": 4100,
+                    "assessment": {
+                        "milestone_details": {
+                            "name": "Questionnaire",
+                            "description": "Ask the user the following questions to assess the business AIMM.",
+                            "steps": [
+                                "8. Security/governance framework/posture? Does security make solution delivery challenging?"
+                            ]
+                        },
+                        "cognitive_load": "Medium",
+                        "milestone_relevance": "Focused",
+                        "deviation_trigger": null,
+                        "progression_status": "Progressive"
+                    }
+                }
+            ],
+            "started_time": "20240520161158",
+            "finished_time": "20240520160654",
+            "model": "gpt-4-turbo",
+            "cog_load_majority": "Medium",
+            "sentiment_majority": "Neutral",
+            "engagement_majority": "Engaged",
+            "highest_step": {
+                "milestone": "Questionnaire",
+                "step": "8. Security/governance framework/posture? Does security make solution delivery challenging?"
+            },
+            "message_count": 20,
+            "engagement_duration": 304.0,
+            "tokens": 38424,
+            "email": null
+        }
+    ]
+}
