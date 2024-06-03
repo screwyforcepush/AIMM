@@ -1,137 +1,100 @@
-
 'use client';
-import React, { useCallback } from 'react';
-import ReactFlow, { useNodesState, useEdgesState, addEdge, Node, Connection, Edge } from 'reactflow';
-import 'reactflow/dist/style.css';
-
-const initialNodes = [
-  {
-    id: 'horizontal-1',
-    sourcePosition: 'right',
-    type: 'input',
-    data: { label: 'Input' },
-    position: { x: 0, y: 80 },
-  },
-  {
-    id: 'horizontal-2',
-    sourcePosition: 'right',
-    targetPosition: 'left',
-    data: { label: 'A Node' },
-    position: { x: 250, y: 0 },
-  },
-  {
-    id: 'horizontal-3',
-    sourcePosition: 'right',
-    targetPosition: 'left',
-    data: { label: 'Node 3' },
-    position: { x: 250, y: 160 },
-  },
-  {
-    id: 'horizontal-4',
-    sourcePosition: 'right',
-    targetPosition: 'left',
-    data: { label: 'Node 4' },
-    position: { x: 500, y: 0 },
-  },
-  {
-    id: 'horizontal-5',
-    sourcePosition: 'top',
-    targetPosition: 'bottom',
-    data: { label: 'Node 5' },
-    position: { x: 500, y: 100 },
-  },
-  {
-    id: 'horizontal-6',
-    sourcePosition: 'bottom',
-    targetPosition: 'top',
-    data: { label: 'Node 6' },
-    position: { x: 500, y: 230 },
-  },
-  {
-    id: 'horizontal-7',
-    sourcePosition: 'right',
-    targetPosition: 'left',
-    data: { label: 'Node 7' },
-    position: { x: 750, y: 50 },
-  },
-  {
-    id: 'horizontal-8',
-    sourcePosition: 'right',
-    targetPosition: 'left',
-    data: { label: 'Node 8' },
-    position: { x: 750, y: 300 },
-  },
-];
-
-const initialEdges = [
-  {
-    id: 'horizontal-e1-2',
-    source: 'horizontal-1',
-    type: 'smoothstep',
-    target: 'horizontal-2',
-    animated: true,
-  },
-  {
-    id: 'horizontal-e1-3',
-    source: 'horizontal-1',
-    type: 'smoothstep',
-    target: 'horizontal-3',
-    animated: true,
-  },
-  {
-    id: 'horizontal-e1-4',
-    source: 'horizontal-2',
-    type: 'smoothstep',
-    target: 'horizontal-4',
-    label: 'edge label',
-  },
-  {
-    id: 'horizontal-e3-5',
-    source: 'horizontal-3',
-    type: 'smoothstep',
-    target: 'horizontal-5',
-    animated: true,
-  },
-  {
-    id: 'horizontal-e3-6',
-    source: 'horizontal-3',
-    type: 'smoothstep',
-    target: 'horizontal-6',
-    animated: true,
-  },
-  {
-    id: 'horizontal-e5-7',
-    source: 'horizontal-5',
-    type: 'smoothstep',
-    target: 'horizontal-7',
-    animated: true,
-  },
-  {
-    id: 'horizontal-e6-8',
-    source: 'horizontal-6',
-    type: 'smoothstep',
-    target: 'horizontal-8',
-    animated: true,
-  },
-];
+import React, { useState, useEffect } from 'react';
+import { Bar, Pie, Line } from 'react-chartjs-2';
+import 'chart.js/auto';
+import { AssistantData, TotalStatistics, AggregateStatistics, HighLevelAnalytics, TrafficVisualization } from './types';
+import assistantsData from './assistants-data-example.json';
 
 const DataViz = () => {
-  const [nodes, _, onNodesChange] = useNodesState(initialNodes as Node[]);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
-  const onConnect = useCallback((params: Edge | Connection) => setEdges((els) => addEdge(params, els)), [setEdges]);
+  const [data, setData] = useState<AssistantData>(assistantsData);
+  const [totalStats, setTotalStats] = useState<TotalStatistics>(data.total);
+  const [aggregateStats, setAggregateStats] = useState<AggregateStatistics>(data.aggregate);
+  const [view, setView] = useState<'high-level' | 'traffic'>('high-level');
+
+  useEffect(() => {
+    // This is where we would fetch real-time data in future updates
+  }, []);
+
+  const renderHighLevelAnalytics = () => {
+    const totalStatsOptions = {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'top' as const,
+        },
+        title: {
+          display: true,
+          text: 'Total Statistics',
+        },
+      },
+    };
+
+    const aggregateStatsOptions = {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'top' as const,
+        },
+        title: {
+          display: true,
+          text: 'Aggregate Statistics',
+        },
+      },
+    };
+
+    const totalStatsData = {
+      labels: Object.keys(totalStats),
+      datasets: [
+        {
+          label: 'Total Statistics',
+          data: Object.values(totalStats),
+          backgroundColor: Object.keys(totalStats).map(() => `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 0.5)`),
+        },
+      ],
+    };
+
+    const aggregateStatsData = {
+      labels: Object.keys(aggregateStats).filter(key => key !== 'dropoff_point'),
+      datasets: [
+        {
+          label: 'Aggregate Statistics',
+          data: Object.values(aggregateStats).filter(value => typeof value !== 'object'),
+          backgroundColor: Object.keys(aggregateStats).map(() => `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 0.5)`),
+        },
+      ],
+    };
+
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <h2 className="text-lg font-semibold mb-2">Total Statistics</h2>
+          <Bar options={totalStatsOptions} data={totalStatsData} />
+        </div>
+        <div>
+          <h2 className="text-lg font-semibold mb-2">Aggregate Statistics</h2>
+          <Pie options={aggregateStatsOptions} data={aggregateStatsData} />
+        </div>
+      </div>
+    );
+  };
+
+  const renderTrafficVisualization = () => {
+    // Placeholder for traffic visualization component
+    return <div>Traffic Visualization Placeholder</div>;
+  };
 
   return (
-    <div className="w-full h-screen overflow-hidden">
-<h1>DataViz</h1>
-    <ReactFlow
-      nodes={nodes}
-      edges={edges}
-      onNodesChange={onNodesChange}
-      onEdgesChange={onEdgesChange}
-      onConnect={onConnect}
-      fitView
-      attributionPosition="bottom-left"
-    ></ReactFlow>
+    <div className="p-4">
+      <h1 className="text-xl font-semibold mb-4">Data Visualization Dashboard</h1>
+      <div className="mb-4">
+        <button onClick={() => setView('high-level')} className="mr-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          High-Level Analytics
+        </button>
+        <button onClick={() => setView('traffic')} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+          Traffic Visualization
+        </button>
+      </div>
+      {view === 'high-level' ? renderHighLevelAnalytics() : renderTrafficVisualization()}
     </div>
   );
 };
