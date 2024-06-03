@@ -145,3 +145,43 @@ export type AssistantData = {
   aggregate: AggregateStatistics;
   threads: Thread[];
 };
+
+// Additional types for high-level analytics and traffic visualization components
+export type HighLevelAnalytics = {
+  totalStatistics: TotalStatistics;
+  aggregateStatistics: AggregateStatistics;
+};
+
+export type TrafficVisualization = {
+  nodes: Array<{
+    id: string;
+    label: string;
+    tokens: number;
+    averageTokens: number;
+  }>;
+  edges: Array<{
+    source: string;
+    target: string;
+    trafficVolume: number;
+  }>;
+};
+
+// New types added for high-level analytics and traffic visualization components as per plan
+export type HighLevelAnalyticsComponentProps = {
+  totalStatistics: TotalStatistics;
+  aggregateStatistics: AggregateStatistics;
+};
+
+export type TrafficVisualizationComponentProps = {
+  nodes: Array<{
+    id: string;
+    label: string;
+    tokens: number;
+    averageTokens: number;
+  }>;
+  edges: Array<{
+    source: string;
+    target: string;
+    trafficVolume: number;
+  }>;
+};
