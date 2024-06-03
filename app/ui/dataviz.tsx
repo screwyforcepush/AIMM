@@ -4,6 +4,12 @@ import HighLevelAnalytics from './HighLevelAnalytics';
 import TrafficVisualization from './TrafficVisualization';
 import SearchFeature from './SearchFeature';
 import assistantsData from './assistants-data-example.json';
+import data from './assistants-data-example.json';
+import {parseAssistantData, AggregateStatistics} from './types'
+import {buildTrafficGraph} from './TrafficGraph'
+// Ensure data has the correct structure
+const assitant_data = parseAssistantData(data);
+const traffic_graph = buildTrafficGraph(assitant_data.threads)
 
 const DataViz = () => {
   const [view, setView] = useState<'high-level' | 'traffic'>('high-level');
@@ -25,7 +31,14 @@ const DataViz = () => {
         </button>
       </div>
       <SearchFeature onSearch={handleSearch} />
-      {view === 'high-level' ? <HighLevelAnalytics data={assistantsData} /> : <TrafficVisualization data={assistantsData} searchQuery={searchQuery} />}
+      {view === 'high-level' ? 
+      <HighLevelAnalytics 
+        totalStatistics={assistantsData.total} 
+        aggregateStatistics={assistantsData.aggregate as AggregateStatistics} 
+      /> : 
+      <TrafficVisualization  
+      traffic_graph={traffic_graph} 
+      searchQuery={searchQuery} />}
     </div>
   );
 };

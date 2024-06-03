@@ -2,20 +2,22 @@ import React from 'react';
 import { Node, Edge } from './types';
 import ReactFlow, { Background, MiniMap, Controls } from 'reactflow';
 import 'reactflow/dist/style.css';
+import { TrafficVisualizationComponentProps } from './types';
 
-interface TrafficVisualizationProps {
-  nodes: Node[];
-  edges: Edge[];
-}
 
-const TrafficVisualization: React.FC<TrafficVisualizationProps> = ({ nodes, edges }) => {
-  const nodeElements = nodes.map(node => ({
+const TrafficVisualization: React.FC<TrafficVisualizationComponentProps> = ({traffic_graph, searchQuery }) => {
+
+  //TODO placeholder just get the first graph
+  const graph = traffic_graph[0];
+
+
+  const nodeElements = graph.nodes.map(node => ({
     id: node.id,
-    data: { label: `${node.label} (Tokens: ${node.totalTokens}, Avg: ${node.averageTokens})` },
+    data: { label: `${node.label} (Tokens: ${node.tokens}, Avg: ${node.averageTokens})` },
     position: { x: Math.random() * window.innerWidth * 0.8, y: Math.random() * window.innerHeight * 0.8 },
   }));
 
-  const edgeElements = edges.map(edge => ({
+  const edgeElements = graph.edges.map(edge => ({
     id: `e${edge.source}-${edge.target}`,
     source: edge.source,
     target: edge.target,
@@ -26,7 +28,8 @@ const TrafficVisualization: React.FC<TrafficVisualizationProps> = ({ nodes, edge
   return (
     <div style={{ height: 800 }}>
       <ReactFlow
-        elements={[...nodeElements, ...edgeElements]}
+        nodes={nodeElements}
+        edges={edgeElements}
         nodesConnectable={false}
         nodesDraggable={true}
         zoomOnScroll={false}

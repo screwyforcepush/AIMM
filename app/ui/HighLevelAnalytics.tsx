@@ -35,7 +35,7 @@ const HighLevelAnalytics: React.FC<HighLevelAnalyticsComponentProps> = ({ totalS
     labels: ['Positive', 'Neutral', 'Negative'],
     datasets: [{
       label: 'Sentiment Distribution',
-      data: [aggregateStatistics.sentiment.Positive, aggregateStatistics.sentiment.Neutral, aggregateStatistics.sentiment.Negative],
+      data: [aggregateStatistics.sentiment],
       backgroundColor: [
         'rgba(75, 192, 192, 0.2)',
         'rgba(54, 162, 235, 0.2)',
