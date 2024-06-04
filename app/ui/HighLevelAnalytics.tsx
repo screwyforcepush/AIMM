@@ -1,61 +1,27 @@
 import React from 'react';
 import { HighLevelAnalyticsComponentProps } from './types';
-import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, PieChart, Pie, Cell, Treemap } from 'recharts';
 
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
-
-const HighLevelAnalytics: React.FC<HighLevelAnalyticsComponentProps> = ({ totalStatistics, aggregateStatistics }) => {
-  const totalData = [
-    { name: 'Thread Count', value: totalStatistics.thread_count },
-    { name: 'Message Count', value: totalStatistics.message_count },
-    { name: 'Engagement Duration', value: totalStatistics.engagement_duration },
-    { name: 'Tokens', value: totalStatistics.tokens },
-    { name: 'Highest Thread Tokens', value: totalStatistics.highest_thread_tokens },
-    { name: 'Leads', value: totalStatistics.leads }
+const HighLevelAnalytics: React.FC<HighLevelAnalyticsComponentProps> = ({ totalStatistics }) => {
+  const metrics = [
+    { name: 'Thread Count', value: totalStatistics.thread_count, icon: '🧵' },
+    { name: 'Message Count', value: totalStatistics.message_count, icon: '💬' },
+    { name: 'Engagement Duration', value: totalStatistics.engagement_duration, icon: '⏳', bar: true },
+    { name: 'Tokens', value: totalStatistics.tokens, icon: '🪙', bar: true },
+    { name: 'Highest Thread Tokens', value: totalStatistics.highest_thread_tokens, icon: '🏆' },
+    { name: 'Leads', value: totalStatistics.leads, icon: '👥' }
   ];
-
-  const aggregateData = [
-    { name: 'Average Message Count', value: aggregateStatistics.message_count },
-    { name: 'Average Engagement Duration', value: aggregateStatistics.engagement_duration },
-    { name: 'Average Tokens', value: aggregateStatistics.tokens },
-    { name: 'Cognitive Load', value: aggregateStatistics.cognitive_load },
-    { name: 'Sentiment', value: aggregateStatistics.sentiment },
-    { name: 'Engagement', value: aggregateStatistics.engagement }
-  ];
-
-  const dropoffData = Object.entries(aggregateStatistics.dropoff_point).map(([key, value]) => ({
-    name: key,
-    children: Object.entries(value.steps).map(([stepKey, stepValue]) => ({
-      name: stepKey,
-      size: stepValue,
-    })),
-  }));
 
   return (
-    <div>
-      <h2>Dashboard Overview</h2>
-      <ResponsiveContainer width="100%" height={300}>
-        <BarChart data={totalData}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Bar dataKey="value" fill="#8884d8" />
-        </BarChart>
-      </ResponsiveContainer>
-      <div style={{ display: 'flex', justifyContent: 'space-around', marginTop: '20px' }}>
-        {aggregateData.map((entry, index) => (
-          <div key={`cell-${index}`} style={{ width: '20%', textAlign: 'center' }}>
-            <h4>{entry.name}</h4>
-            <p>{entry.value}</p>
-          </div>
-        ))}
-      </div>
-      <h2>Dropoff Point Analysis</h2>
-      <ResponsiveContainer width="100%" height={400}>
-        <Treemap data={dropoffData} dataKey="size" aspectRatio={4 / 3} stroke="#fff" fill="#8884d8" />
-      </ResponsiveContainer>
+    <div className="grid grid-cols-2 md:grid-cols-3 gap-4 p-4">
+      {metrics.map((metric, index) => (
+        <div key={index} className="flex flex-col items-center p-4 border rounded-lg shadow">
+          <div className="text-lg font-semibold">{metric.icon} {metric.name}</div>
+          <div className="text-2xl font-bold my-2">{metric.value}</div>
+          {metric.bar && <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+            <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: `${Math.min(100, (metric.value / 1000) * 100)}%` }}></div>
+          </div>}
+        </div>
+      ))}
     </div>
   );
 };
