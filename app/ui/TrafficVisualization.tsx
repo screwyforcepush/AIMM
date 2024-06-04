@@ -11,23 +11,23 @@ const TrafficVisualization: React.FC<TrafficVisualizationComponentProps> = ({tra
   const graph = traffic_graph[0];
 
 
-  const nodeElements = graph.nodes.map(node => ({
-    id: node.id,
-    data: { label: `${node.label} (Tokens: ${node.tokens}, Avg: ${node.averageTokens})` },
-    position: { x: Math.random() * window.innerWidth * 0.8, y: Math.random() * window.innerHeight * 0.8 },
-  }));
+  // const nodeElements = graph.nodes.map(node => ({
+  //   id: node.id,
+  //   data: { label: `${node.label} (Tokens: ${node.tokens}, Avg: ${node.averageTokens})` },
+  //   position: { x: Math.random() * window.innerWidth * 0.8, y: Math.random() * window.innerHeight * 0.8 },
+  // }));
 
-  const edgeElements = graph.edges.map(edge => ({
-    id: `e${edge.source}-${edge.target}`,
-    source: edge.source,
-    target: edge.target,
-    animated: true,
-    label: `Traffic: ${edge.trafficVolume}`,
-  }));
+  // const edgeElements = graph.edges.map(edge => ({
+  //   id: `e${edge.source}-${edge.target}`,
+  //   source: edge.source,
+  //   target: edge.target,
+  //   animated: true,
+  //   label: `Traffic: ${edge.trafficVolume}`,
+  // }));
 
   return (
     <div style={{ height: 800 }}>
-      <ReactFlow
+      {/* <ReactFlow
         nodes={nodeElements}
         edges={edgeElements}
         nodesConnectable={false}
@@ -42,7 +42,8 @@ const TrafficVisualization: React.FC<TrafficVisualizationComponentProps> = ({tra
           }}
         />
         <Controls />
-      </ReactFlow>
+      </ReactFlow> */}
+      TODO
     </div>
   );
 };

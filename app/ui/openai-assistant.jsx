@@ -241,7 +241,7 @@ export function OpenAIAssistantMessage({ message }) {
                 return <AiOutlineUser />;
             case "assistant":
                 return (
-                    <div className="w-30 h-30 rounded-lg overflow-hidden">
+                    <div className="rounded-lg overflow-hidden">
                         <Image src={`/AIMM.jpeg`} width="256" height="256" alt="AIMM" />
                     </div>
                 );

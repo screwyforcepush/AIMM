@@ -207,7 +207,6 @@ function parseEnum<T extends Record<string, unknown>>(value: any, enumObject: T)
 
 // Parsing for MilestoneDetails
 function parseMilestoneDetails(data: any): MilestoneDetails {
-    console.log(data)
   return {
     name: validateProperty(data, 'name', 'string'),
     description: validateProperty(data, 'description', 'string'),

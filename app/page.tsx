@@ -7,8 +7,8 @@ import React, { useState } from 'react';
 export default function Home() {
   const [showDataViz, toggleDataViz] = useState(false);
   return (
-    <div className="min-h-screen bg-gradient-to-r from-blue-100 to-gray-50 flex flex-col justify-between">
-      <main>
+    <div >
+      <main className="min-h-screen bg-gradient-to-r from-blue-100 to-gray-50 flex flex-col justify-between">
       {!showDataViz && 
         <div className="h-full flex flex-1 flex-col md:flex-row">
           <div className="flex-1 d-flex flex-column justify-content-center py-12 px-4 sm:px-6 lg:flex-1 lg:px-8 bg-white/95 backdrop-blur-md shadow-2xl">
@@ -89,7 +89,8 @@ export default function Home() {
         <button 
           onClick={() => toggleDataViz(!showDataViz)}
           className="fixed top-0 right-0 m-4 bg-gradient-to-r from-blue-700 to-cyan-600 hover:from-blue-800 hover:to-cyan-700 text-white font-bold py-2 px-4 rounded z-10"        >
-          Toggle DataViz
+            {showDataViz ? 'Aimme' : 'DataViz'}
+
         </button>
         {showDataViz && <DataViz />}
       </main>

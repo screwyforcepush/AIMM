@@ -23,14 +23,20 @@ const DataViz = () => {
     <div className="p-4 h-full">
       <h1 className="text-xl font-semibold mb-4">Data Visualization Dashboard</h1>
       <div className="mb-4">
-        <button onClick={() => setView('high-level')} className="mr-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-          High-Level Analytics
+        <button 
+          onClick={() => setView('high-level')} 
+          className={`mr-2 font-bold py-2 px-4 text-white transition duration-150 ease-in-out rounded-t ${view === 'high-level' ? 'bg-cyan-600 border-b-2 border-cyan-600' : 'bg-blue-700 hover:bg-blue-800'}`}
+        >
+          High-Level
         </button>
-        <button onClick={() => setView('traffic')} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-          Traffic Visualization
+        <button 
+          onClick={() => setView('traffic')} 
+          className={`font-bold py-2 px-4 text-white transition duration-150 ease-in-out rounded-t ${view === 'traffic' ? 'bg-cyan-600 border-b-2 border-cyan-600' : 'bg-blue-700 hover:bg-blue-800'}`}
+        >
+          Traffic
         </button>
       </div>
-      <SearchFeature onSearch={handleSearch} />
+      {/* <SearchFeature onSearch={handleSearch} /> */}
       {view === 'high-level' ? 
       <HighLevelAnalytics 
         totalStatistics={assistantsData.total} 
