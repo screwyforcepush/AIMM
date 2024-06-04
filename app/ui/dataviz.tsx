@@ -1,6 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import HighLevelAnalytics from './HighLevelAnalytics';
+import HighLevelAnalytics from './high-level-analytics/HighLevelAnalytics';
 import TrafficVisualization from './TrafficVisualization';
 import SearchFeature from './SearchFeature';
 import assistantsData from './assistants-data-example.json';

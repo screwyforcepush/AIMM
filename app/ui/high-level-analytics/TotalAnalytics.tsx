@@ -1,5 +1,5 @@
 import React from 'react';
-import { TotalStatistics } from './types';
+import { TotalStatistics } from '../types';
 
 interface TotalAnalyticsProps {
   totalStatistics: TotalStatistics;
