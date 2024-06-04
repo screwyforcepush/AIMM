@@ -92,7 +92,8 @@ export default function Home() {
         </button>
         {showDataViz && <DataViz />}
       </main>
-<footer className="absolute bottom-0 w-full py-4 bg-gray-900 text-gray-400 text-center text-sm">        Connect with the founders on linkedin:&nbsp;&nbsp;|&nbsp;&nbsp;
+      <footer className="w-full py-4 bg-gray-900 text-gray-400 text-center text-sm">
+        Connect with the founders on linkedin:&nbsp;&nbsp;|&nbsp;&nbsp;
         <a
           href="https://www.linkedin.com/in/alexsavagedata/"
           target="_blank"

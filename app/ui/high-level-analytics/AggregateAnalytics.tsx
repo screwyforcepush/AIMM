@@ -10,6 +10,9 @@ const AggregateAnalytics: React.FC<AggregateAnalyticsProps> = ({ aggregateStatis
     { name: 'Message Count', value: Math.round(aggregateStatistics.message_count), icon: '💬' },
     { name: 'Engagement Duration', value: Math.round(aggregateStatistics.engagement_duration / 60), suffix: ' mins', icon: '⏳', bar: 5 },
     { name: 'Engagement Cost', value: Number((aggregateStatistics.tokens / 80000).toFixed(2)), prefix: '$', icon: '💰', bar: 1 },
+    { name: 'Cognitive Load', value: aggregateStatistics.cognitive_load, icon: '🧠' },
+    { name: 'Sentiment', value: aggregateStatistics.sentiment, icon: '😐' },
+    { name: 'Engagement', value: aggregateStatistics.engagement, icon: '🔥' },
 // TODO rest of metrics
   ];
     return (
