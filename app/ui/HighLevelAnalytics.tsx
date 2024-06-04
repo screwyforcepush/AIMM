@@ -1,79 +1,61 @@
 import React from 'react';
-import { Bar, Pie, Line } from 'react-chartjs-2';
-import 'chart.js/auto';
 import { HighLevelAnalyticsComponentProps } from './types';
+import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, PieChart, Pie, Cell, Treemap } from 'recharts';
+
+const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
 const HighLevelAnalytics: React.FC<HighLevelAnalyticsComponentProps> = ({ totalStatistics, aggregateStatistics }) => {
-  // Data for bar chart (Total Statistics)
-  const totalStatsData = {
-    labels: ['Thread Count', 'Engagement Duration', 'Message Count', 'Total Tokens', 'Highest Thread Tokens', 'Leads'],
-    datasets: [{
-      label: 'Total Statistics',
-      data: [totalStatistics.thread_count, totalStatistics.engagement_duration, totalStatistics.message_count, totalStatistics.tokens, totalStatistics.highest_thread_tokens, totalStatistics.leads],
-      backgroundColor: [
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(255, 206, 86, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(255, 159, 64, 0.2)'
-      ],
-      borderColor: [
-        'rgba(255, 99, 132, 1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(255, 159, 64, 1)'
-      ],
-      borderWidth: 1
-    }]
-  };
+  const totalData = [
+    { name: 'Thread Count', value: totalStatistics.thread_count },
+    { name: 'Message Count', value: totalStatistics.message_count },
+    { name: 'Engagement Duration', value: totalStatistics.engagement_duration },
+    { name: 'Tokens', value: totalStatistics.tokens },
+    { name: 'Highest Thread Tokens', value: totalStatistics.highest_thread_tokens },
+    { name: 'Leads', value: totalStatistics.leads }
+  ];
 
-  // Data for pie chart (Aggregate Statistics - Sentiment)
-  const sentimentData = {
-    labels: ['Positive', 'Neutral', 'Negative'],
-    datasets: [{
-      label: 'Sentiment Distribution',
-      data: [aggregateStatistics.sentiment],
-      backgroundColor: [
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(255, 99, 132, 0.2)'
-      ],
-      borderColor: [
-        'rgba(75, 192, 192, 1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 99, 132, 1)'
-      ],
-      borderWidth: 1
-    }]
-  };
+  const aggregateData = [
+    { name: 'Average Message Count', value: aggregateStatistics.message_count },
+    { name: 'Average Engagement Duration', value: aggregateStatistics.engagement_duration },
+    { name: 'Average Tokens', value: aggregateStatistics.tokens },
+    { name: 'Cognitive Load', value: aggregateStatistics.cognitive_load },
+    { name: 'Sentiment', value: aggregateStatistics.sentiment },
+    { name: 'Engagement', value: aggregateStatistics.engagement }
+  ];
 
-  // Data for line chart (Aggregate Statistics - Engagement Duration)
-  const engagementDurationData = {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-    datasets: [{
-      label: 'Engagement Duration Over Time',
-      data: [/* Data points for each month */],
-      fill: false,
-      borderColor: 'rgb(75, 192, 192)',
-      tension: 0.1
-    }]
-  };
+  const dropoffData = Object.entries(aggregateStatistics.dropoff_point).map(([key, value]) => ({
+    name: key,
+    children: Object.entries(value.steps).map(([stepKey, stepValue]) => ({
+      name: stepKey,
+      size: stepValue,
+    })),
+  }));
 
   return (
     <div>
-      <h2>High-Level Analytics</h2>
-      <div>
-        <Bar data={totalStatsData} />
+      <h2>Dashboard Overview</h2>
+      <ResponsiveContainer width="100%" height={300}>
+        <BarChart data={totalData}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="name" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Bar dataKey="value" fill="#8884d8" />
+        </BarChart>
+      </ResponsiveContainer>
+      <div style={{ display: 'flex', justifyContent: 'space-around', marginTop: '20px' }}>
+        {aggregateData.map((entry, index) => (
+          <div key={`cell-${index}`} style={{ width: '20%', textAlign: 'center' }}>
+            <h4>{entry.name}</h4>
+            <p>{entry.value}</p>
+          </div>
+        ))}
       </div>
-      <div>
-        <Pie data={sentimentData} />
-      </div>
-      <div>
-        <Line data={engagementDurationData} />
-      </div>
+      <h2>Dropoff Point Analysis</h2>
+      <ResponsiveContainer width="100%" height={400}>
+        <Treemap data={dropoffData} dataKey="size" aspectRatio={4 / 3} stroke="#fff" fill="#8884d8" />
+      </ResponsiveContainer>
     </div>
   );
 };
