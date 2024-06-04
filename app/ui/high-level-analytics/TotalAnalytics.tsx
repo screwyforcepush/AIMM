@@ -10,7 +10,7 @@ const TotalAnalytics: React.FC<TotalAnalyticsProps> = ({ totalStatistics }) => {
     { name: 'Thread Count', value: totalStatistics.thread_count, icon: '🧵' },
     { name: 'Message Count', value: totalStatistics.message_count, icon: '💬' },
     { name: 'Engagement Duration', value: `${Math.round(totalStatistics.engagement_duration / 60)} mins`, icon: '⏳', bar: true },
-    { name: 'Tokens', value: `$${(totalStatistics.tokens / 80000).toFixed(2)}`, icon: '🪙', bar: true },
+    { name: 'Tokens', value: `$${(totalStatistics.tokens / 80000).toFixed(2)}`, icon: '💰', bar: true },
     { name: 'Highest Thread Tokens', value: `$${(totalStatistics.highest_thread_tokens / 80000).toFixed(2)}`, icon: '🏆' },
     { name: 'Leads', value: totalStatistics.leads, icon: '👥' }
   ];
