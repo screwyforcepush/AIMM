@@ -40,6 +40,10 @@ const DropoffAnalytics: React.FC<DropoffProps> = ({ dropoff_points }) => {
 };
 
 const CustomizedContent = ({ root, depth, x, y, width, height, index, colors, name, size }) => {
+  const colorScale = d3.scaleLinear()
+    .domain([0, Math.max(...root.children.map(d => d.size))])
+    .range(["#83a6ed", "#ff6347"]); // Light blue to tomato red
+
   return (
     <g>
       <rect
@@ -48,7 +52,7 @@ const CustomizedContent = ({ root, depth, x, y, width, height, index, colors, na
         width={width}
         height={height}
         style={{
-          fill: depth < 2 ? colors[Math.floor(index / root.children.length * 6)] : 'none',
+          fill: depth < 2 ? colorScale(size) : 'none',
           stroke: '#fff',
           strokeWidth: 2 / (depth + 1e-10),
           strokeOpacity: 1 / (depth + 1e-10),
