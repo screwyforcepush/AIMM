@@ -8,9 +8,9 @@ export default function Home() {
   const [showDataViz, toggleDataViz] = useState(false);
   return (
     <div className="min-h-screen bg-gradient-to-r from-blue-100 to-gray-50 flex flex-col justify-between">
-      <main >
+      <main>
       {!showDataViz && 
-        <div className="min-h-screen flex flex-1 flex-col md:flex-row">
+        <div className="h-full flex flex-1 flex-col md:flex-row">
           <div className="flex-1 d-flex flex-column justify-content-center py-12 px-4 sm:px-6 lg:flex-1 lg:px-8 bg-white/95 backdrop-blur-md shadow-2xl">
             <div className="mx-auto max-w-4xl space-y-6">
               <div>
@@ -84,6 +84,7 @@ export default function Home() {
             </div>
           </div>
         </div>
+        
         }
         <button 
           onClick={() => toggleDataViz(!showDataViz)}

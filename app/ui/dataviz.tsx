@@ -20,7 +20,7 @@ const DataViz = () => {
   };
 
   return (
-    <div className="p-4">
+    <div className="p-4 h-full">
       <h1 className="text-xl font-semibold mb-4">Data Visualization Dashboard</h1>
       <div className="mb-4">
         <button onClick={() => setView('high-level')} className="mr-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
