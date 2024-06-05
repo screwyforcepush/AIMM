@@ -1,12 +1,12 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import HighLevelAnalytics from './high-level-analytics/HighLevelAnalytics';
-import TrafficVisualization from './TrafficVisualization';
+import TrafficVisualization from './traffic/TrafficVisualization';
 import SearchFeature from './SearchFeature';
 import assistantsData from './assistants-data-example.json';
 import data from './assistants-data-example.json';
 import {parseAssistantData, AggregateStatistics} from './types'
-import {buildTrafficGraph} from './TrafficGraph'
+import {buildTrafficGraph} from './traffic/TrafficGraph'
 // Ensure data has the correct structure
 const assitant_data = parseAssistantData(data);
 const traffic_graph = buildTrafficGraph(assitant_data.threads)
@@ -21,7 +21,7 @@ const DataViz = () => {
 
   return (
     <div className="p-4 h-full">
-      <h1 className="text-xl font-semibold mb-4">Data Visualization Dashboard</h1>
+      <h1 className="text-xl font-semibold mb-4">Data Visualization Dashboard *WIP*</h1>
       <div className="mb-4">
         <button 
           onClick={() => setView('high-level')} 

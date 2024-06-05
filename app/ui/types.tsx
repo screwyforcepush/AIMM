@@ -58,7 +58,7 @@ interface BaseMessage<T> {
   assessment: T;
 }
 
-interface UserMessage
+export interface UserMessage
   extends BaseMessage<{
     init: boolean | null;
     prompt_hack_attempt: boolean | null;
@@ -77,7 +77,7 @@ interface UserMessage
   role: Role.User;
 }
 
-interface AssistantMessage
+export interface AssistantMessage
   extends BaseMessage<{
     milestone_details: MilestoneDetails | null;
     cognitive_load: CognitiveLoad | null;
@@ -146,39 +146,49 @@ export type AggregateStatistics = {
 };
 
 
-export type ThreadGraph = {
-  nodes: Array<{
-    id: string;
-    label: string;
-    tokens: number;
-    averageTokens: number;
-  }>;
-  edges: Array<{
-    source: string;
-    target: string;
-    trafficVolume: number;
-  }>;
-};
 
 export interface TrafficVisualizationComponentProps {
-    traffic_graph: ThreadGraph[]; // replace with the actual type
+    traffic_graph: ThreadGraph; // replace with the actual type
     searchQuery: string;
   }
 
+export type NodeThread = {
+    thread_id: string;
+    message_id: string | null;
+    user_prompt: UserMessage | null;
+    assistant_message: AssistantMessage | null;
+    user_response: UserMessage | null;
+    message_cost: number;
+    run_total_cost: number;
+  };
+
 // New types for nodes and edges to support the traffic visualization feature
 export type Node = {
-  id: string;
-  label: string;
-  totalTokens: number;
-  averageTokens: number;
+    id: string;
+    label: string;
+    type: string;
+    description?: string;
+    totalCost?: number;
+    avgCost?: number;
+    sentiment?: Record<Sentiment,number>;
+    engagement?: Record<Engagement, number>;
+    cognitiveLoad?: Record<CognitiveLoad, number>;
+    progressionStatus?: Record<ProgressionStatus, number>;
+    threads?: Array<NodeThread>;
 };
 
 export type Edge = {
   source: string;
   target: string;
   trafficVolume: number;
+  thread_ids: Array<string>;
 };
 
+export type ThreadGraph = {
+    nodes: Array<Node>;
+    edges: Array<Edge>;
+  };
+  
 
 // Parent Type for Assistant Data
 export type AssistantData = {

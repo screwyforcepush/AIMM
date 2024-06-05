@@ -6,6 +6,16 @@ import React, { useState } from 'react';
 
 export default function Home() {
   const [showDataViz, toggleDataViz] = useState(false);
+  const [password, setPassword] = useState('klnook');
+
+  const handleClick = () => {
+    const enteredPassword = prompt('Enter password');
+    if (enteredPassword === password) {
+      toggleDataViz(!showDataViz);
+    } else {
+      alert('Incorrect password');
+    }
+  };
   return (
     <div >
       <main className="min-h-screen bg-gradient-to-r from-blue-100 to-gray-50 flex flex-col justify-between">
@@ -87,10 +97,10 @@ export default function Home() {
         
         }
         <button 
-          onClick={() => toggleDataViz(!showDataViz)}
-          className="fixed top-0 right-0 m-4 bg-gradient-to-r from-blue-700 to-cyan-600 hover:from-blue-800 hover:to-cyan-700 text-white font-bold py-2 px-4 rounded z-10"        >
-            {showDataViz ? 'Aimme' : 'DataViz'}
-
+          onClick={handleClick}
+          className="fixed top-0 right-0 m-4 bg-gradient-to-r from-blue-700 to-cyan-600 hover:from-blue-800 hover:to-cyan-700 text-white font-bold py-2 px-4 rounded z-10"
+        >
+          {showDataViz ? 'Aimme' : 'DataViz'}
         </button>
         {showDataViz && <DataViz />}
       </main>
