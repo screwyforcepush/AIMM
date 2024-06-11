@@ -89,8 +89,9 @@ const TrafficVisualization: React.FC<TrafficVisualizationComponentProps> = ({
       }))
     );
     setEdges(
-      layoutedEdges.map((edge) => ({
+      layoutedEdges.map((edge, index) => ({
         ...edge,
+        id: `edge-${index}`,
         style: { strokeWidth: `${Math.max(1, edge.trafficVolume / 10)}px` },
       }))
     );
