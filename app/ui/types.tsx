@@ -174,7 +174,7 @@ export type Node = {
     engagement?: Partial<Record<Engagement, number>>;
     cognitiveLoad?: Partial<Record<CognitiveLoad, number>>;
     progressionStatus?: Partial<Record<ProgressionStatus, number>>;
-    message_ids?: Array<NodeMessage>;
+    message_ids?: Array<string>;
 };
 
 export type Edge = {
@@ -187,7 +187,8 @@ export type Edge = {
 export type TrafficGraph = {
     nodes: Array<Node>;
     edges: Array<Edge>;
-  };
+    nodeMessages: Array<NodeMessage>;
+};
   
 
 // Parent Type for Assistant Data
