@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import ReactFlow, {
   Background,
   MiniMap,
@@ -18,6 +18,7 @@ const nodeTypes = {
         backgroundColor: "#FFD700",
         padding: "10px",
         borderRadius: "5px",
+        border: "2px solid black",
       }}
     >
       <Handle type="target" position={Position.Left} />
@@ -31,6 +32,7 @@ const nodeTypes = {
         backgroundColor: "#FF6347",
         padding: "10px",
         borderRadius: "5px",
+        border: "2px solid black",
       }}
     >
       <Handle type="target" position={Position.Left} />
@@ -44,6 +46,7 @@ const nodeTypes = {
         backgroundColor: "#90EE90",
         padding: "10px",
         borderRadius: "5px",
+        border: "2px solid black",
       }}
     >
       <Handle type="target" position={Position.Left} />
