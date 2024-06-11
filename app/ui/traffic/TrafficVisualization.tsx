@@ -58,12 +58,29 @@ const getLayoutedElements = (
   edges: Edge[],
   direction = "LR"
 ) => {
-  // Custom layout logic here
-  let id = 0;
-  const layoutedNodes = nodes.map((node) => ({
-    ...node,
-    position: { x: (id++ % 5) * 250, y: Math.floor(id / 5) * 100 },
-  }));
+  // Group nodes by their type
+  const groupedNodes = nodes.reduce((acc, node) => {
+    acc[node.type] = acc[node.type] || [];
+    acc[node.type].push(node);
+    return acc;
+  }, {});
+
+  // Position nodes of the same type closer together
+  let yPos = 0;
+  let xPos = 0;
+  const layoutedNodes = [];
+  Object.keys(groupedNodes).forEach((type, typeIndex) => {
+    groupedNodes[type].forEach((node, index) => {
+      layoutedNodes.push({
+        ...node,
+        position: { x: xPos, y: yPos },
+      });
+      yPos += 100; // Increment y position for the next node in the same group
+    });
+    xPos += 250; // Increment x position for the next group
+    yPos = 0; // Reset y position for the next group
+  });
+
   return { nodes: layoutedNodes, edges };
 };
 
