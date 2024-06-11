@@ -80,14 +80,14 @@ export interface UserMessage
 export interface AssistantMessage
   extends BaseMessage<{
     milestone_details: MilestoneDetails | null;
-    cognitive_load: CognitiveLoad | null;
+    cognitive_load: CognitiveLoad;
     milestone_relevance: MilestoneRelevance | null;
     deviation_trigger:
       | "Prompt Hack Attempt"
       | "User Tangent"
       | "Irrelevant Response"
       | null;
-    progression_status: ProgressionStatus | null;
+    progression_status: ProgressionStatus;
   }> {
   role: Role.Assistant;
 }
@@ -148,13 +148,13 @@ export type AggregateStatistics = {
 
 
 export interface TrafficVisualizationComponentProps {
-    traffic_graph: ThreadGraph; // replace with the actual type
+    traffic_graph: TrafficGraph; // replace with the actual type
     searchQuery: string;
   }
 
-export type NodeThread = {
+export type NodeMessage = {
     thread_id: string;
-    message_id: string | null;
+    message_id: string;
     user_prompt: UserMessage | null;
     assistant_message: AssistantMessage | null;
     user_response: UserMessage | null;
@@ -170,11 +170,11 @@ export type Node = {
     description?: string;
     totalCost?: number;
     avgCost?: number;
-    sentiment?: Record<Sentiment,number>;
-    engagement?: Record<Engagement, number>;
-    cognitiveLoad?: Record<CognitiveLoad, number>;
-    progressionStatus?: Record<ProgressionStatus, number>;
-    threads?: Array<NodeThread>;
+    sentiment?: Partial<Record<Sentiment, number>>;
+    engagement?: Partial<Record<Engagement, number>>;
+    cognitiveLoad?: Partial<Record<CognitiveLoad, number>>;
+    progressionStatus?: Partial<Record<ProgressionStatus, number>>;
+    message_ids?: Array<NodeMessage>;
 };
 
 export type Edge = {
@@ -184,7 +184,7 @@ export type Edge = {
   thread_ids: Array<string>;
 };
 
-export type ThreadGraph = {
+export type TrafficGraph = {
     nodes: Array<Node>;
     edges: Array<Edge>;
   };
@@ -255,10 +255,10 @@ function parseAssistantMessage(data: any): AssistantMessage {
   return {
     ...parseBaseMessage(data, assessment => ({
     milestone_details: assessment['milestone_details'] ? validateProperty(assessment, 'milestone_details', 'object', parseMilestoneDetails) : null,
-    cognitive_load: assessment['cognitive_load'] ? parseEnum(validateProperty(assessment, 'cognitive_load', 'string'), CognitiveLoad) : null,
+    cognitive_load: parseEnum(validateProperty(assessment, 'cognitive_load', 'string'), CognitiveLoad),
     milestone_relevance: assessment['milestone_relevance'] ? parseEnum(validateProperty(assessment, 'milestone_relevance', 'string'), MilestoneRelevance) : null,
     deviation_trigger: assessment['deviation_trigger'] ? validateProperty(assessment, 'deviation_trigger', 'string') : null,
-    progression_status: assessment['progression_status'] ? parseEnum(validateProperty(assessment, 'progression_status', 'string'), ProgressionStatus) : null,
+    progression_status: parseEnum(validateProperty(assessment, 'progression_status', 'string'), ProgressionStatus),
     })),
     role: Role.Assistant
   };
