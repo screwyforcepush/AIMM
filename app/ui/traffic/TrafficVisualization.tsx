@@ -1,10 +1,12 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import ReactFlow, {
   Background,
   MiniMap,
   Controls,
   Handle,
   Position,
+  useNodesState,
+  useEdgesState,
 } from "reactflow";
 import "reactflow/dist/style.css";
 import { TrafficVisualizationComponentProps, Node, Edge } from "../types";
@@ -57,36 +59,52 @@ const getLayoutedElements = (
   direction = "LR"
 ) => {
   // Custom layout logic here
-  return { nodes, edges };
+  let id = 0;
+  const layoutedNodes = nodes.map((node) => ({
+    ...node,
+    position: { x: (id++ % 5) * 250, y: Math.floor(id / 5) * 100 },
+  }));
+  return { nodes: layoutedNodes, edges };
 };
 
 const TrafficVisualization: React.FC<TrafficVisualizationComponentProps> = ({
   traffic_graph,
   searchQuery,
 }) => {
-  const { nodes, edges } = useMemo(() => {
-    const layouted = getLayoutedElements(
+  const [nodes, setNodes, onNodesChange] = useNodesState([]);
+  const [edges, setEdges, onEdgesChange] = useEdgesState([]);
+
+  useMemo(() => {
+    const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(
       traffic_graph.nodes,
       traffic_graph.edges
     );
-    return {
-      nodes: layouted.nodes.map((node) => ({
+    setNodes(
+      layoutedNodes.map((node) => ({
         ...node,
         type: nodeTypes[node.type as keyof typeof nodeTypes]
           ? node.type
           : "default",
         data: { label: node.label },
-      })),
-      edges: layouted.edges.map((edge) => ({
+      }))
+    );
+    setEdges(
+      layoutedEdges.map((edge) => ({
         ...edge,
-        style: { stroke: `rgba(0, 0, 0, ${edge.trafficVolume / 10})` },
-      })),
-    };
-  }, [traffic_graph]);
+        style: { strokeWidth: `${Math.max(1, edge.trafficVolume / 10)}px` },
+      }))
+    );
+  }, [traffic_graph, setNodes, setEdges]);
 
   return (
     <div style={{ height: 500 }}>
-      <ReactFlow nodes={nodes} edges={edges} nodeTypes={nodeTypes}>
+      <ReactFlow
+        nodes={nodes}
+        edges={edges}
+        nodeTypes={nodeTypes}
+        onNodesChange={onNodesChange}
+        onEdgesChange={onEdgesChange}
+      >
         <Background />
         <MiniMap />
         <Controls />
