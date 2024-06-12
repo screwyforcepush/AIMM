@@ -9,7 +9,7 @@ import ReactFlow, {
 } from "reactflow";
 import "reactflow/dist/style.css";
 import { TrafficVisualizationComponentProps } from "../types";
-import { createNodes, createEdges } from "./utils/createGraphElements";
+import { createNodes, createEdges } from "./GraphUtilities";
 import {
   MilestoneNode,
   MilestoneStepNode,
@@ -17,12 +17,16 @@ import {
   SystemNode,
   DeviationContainer,
   DeviationNode,
-} from "./nodes";
+} from "./NodeComponents";
 
 const TrafficVisualization: React.FC<TrafficVisualizationComponentProps> = ({
   traffic_graph,
 }) => {
-  const { rfNodes, rfEdges } = useMemo(() => createGraphElements(traffic_graph), [traffic_graph]);
+  const { rfNodes, rfEdges } = useMemo(() => {
+    const nodes = createNodes(traffic_graph.nodes);
+    const edges = createEdges(traffic_graph.edges);
+    return { rfNodes: nodes, rfEdges: edges };
+  }, [traffic_graph]);
 
   return (
     <div className="w-full" style={{ height: "calc(100vh - 150px)" }}>
