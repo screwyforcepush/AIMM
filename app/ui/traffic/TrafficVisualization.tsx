@@ -1,130 +1,111 @@
-import React, { useMemo } from "react";
-import ReactFlow, {
-  Background,
-  MiniMap,
-  Controls,
-  Handle,
-  Position,
-  useNodesState,
-  useEdgesState,
-} from "reactflow";
-import "reactflow/dist/style.css";
-import { TrafficVisualizationComponentProps, Node, Edge } from "../types";
+import React, { useMemo } from 'react';
+import ReactFlow, { Background, MiniMap, Controls, Handle, Position, BaseEdge } from 'reactflow';
+import 'reactflow/dist/style.css';
+import { TrafficVisualizationComponentProps, Node, Edge } from '../types';
 
-const nodeTypes = {
-  system: ({ data }: { data: Node }) => (
-    <div
-      style={{
-        backgroundColor: "#FFD700",
-        padding: "10px",
-        borderRadius: "5px",
-        border: "2px solid black",
-      }}
-    >
-      <Handle type="target" position={Position.Left} />
-      <div>{data.label}</div>
-      <Handle type="source" position={Position.Right} />
+// Define custom node type to include grouped children
+const MilestoneNode: React.FC<{ data: { label: string, children: Node[] } }> = ({ data }) => {
+  return (
+    <div className="bg-green-900 bg-opacity-50 border border-black p-2 rounded"
+    style={{ height: 70 * data.children.length+ 50 }}>
+      <div className='overflow-hidden'>{data.label}</div>
     </div>
-  ),
-  deviation: ({ data }: { data: Node }) => (
-    <div
-      style={{
-        backgroundColor: "#FF6347",
-        padding: "10px",
-        borderRadius: "5px",
-        border: "2px solid black",
-      }}
-    >
-      <Handle type="target" position={Position.Left} />
-      <div>{data.label}</div>
-      <Handle type="source" position={Position.Right} />
-    </div>
-  ),
-  default: ({ data }: { data: Node }) => (
-    <div
-      style={{
-        backgroundColor: "#90EE90",
-        padding: "10px",
-        borderRadius: "5px",
-        border: "2px solid black",
-      }}
-    >
-      <Handle type="target" position={Position.Left} />
-      <div>{data.label}</div>
-      <Handle type="source" position={Position.Right} />
-    </div>
-  ),
+  );
 };
 
-const getLayoutedElements = (
-  nodes: Node[],
-  edges: Edge[],
-  direction = "LR"
-) => {
-  // Group nodes by their type
-  const groupedNodes = nodes.reduce((acc, node) => {
-    acc[node.type] = acc[node.type] || [];
-    acc[node.type].push(node);
-    return acc;
-  }, {});
+const MilestoneStepNode: React.FC<{ data: { label: string } }> = ({ data }) => {
+  return (
+    <div className='overflow-hidden bg-green-700 bg-opacity-50 border border-black p-2 rounded h-40' 
+    style={{ height: 40 }}>
+      <div className=''>{data.label}</div>
 
-  // Position nodes of the same type closer together
-  let yPos = 0;
-  let xPos = 0;
-  const layoutedNodes = [];
-  Object.keys(groupedNodes).forEach((type, typeIndex) => {
-    groupedNodes[type].forEach((node, index) => {
-      layoutedNodes.push({
-        ...node,
-        position: { x: xPos, y: yPos },
-      });
-      yPos += 100; // Increment y position for the next node in the same group
-    });
-    xPos += 250; // Increment x position for the next group
-    yPos = 0; // Reset y position for the next group
+      <Handle type="target" position={Position.Left} className="!bg-teal-500" />
+      <Handle type="source" position={Position.Bottom} className="!bg-teal-500" />
+   
+    </div>
+  );
+};
+
+// Convert trafficVolume to edge thickness
+const getEdgeStyle = (trafficVolume: number) => ({
+  strokeWidth: Math.max(1, trafficVolume / 10),
+});
+
+
+const TrafficVisualization: React.FC<TrafficVisualizationComponentProps> = ({ traffic_graph }) => {
+  // Group nodes by type
+  const groupedNodes: { [key: string]: Node[] } = {};
+  traffic_graph.nodes.forEach(node => {
+    if (!groupedNodes[node.type]) {
+      groupedNodes[node.type] = [];
+    }
+    groupedNodes[node.type].push(node);
   });
 
-  return { nodes: layoutedNodes, edges };
-};
 
-const TrafficVisualization: React.FC<TrafficVisualizationComponentProps> = ({
-  traffic_graph,
-  searchQuery,
-}) => {
-  const [nodes, setNodes, onNodesChange] = useNodesState([]);
-  const [edges, setEdges, onEdgesChange] = useEdgesState([]);
+  // Create reactflow nodes
+  const rfNodes = useMemo(() => {
+    const nodes: any[] = [];
+    Object.keys(groupedNodes).forEach((type, index) => {
+      const children = groupedNodes[type];
+      nodes.push({
+        id: `group-${type}`,
+        data: { label: type, children},
+        position: { x: index * 250, y: 0 },
+        style: { width: 220 },
+        type: 'milestone',
+      });
+      children.forEach((child, childIndex) => {
+        nodes.push({
+          id: child.id,
+          data: { label: child.label },
+          position: { x: 10, y: childIndex * 70 + 50 },
+          parentId: `group-${type}`,
+          extent: 'parent',
+          type: 'milestoneStep',
+          className: child.label,
+          style: { width: 200 },
+        });
+      });
+    });
+    return nodes;
+  }, [traffic_graph.nodes]);
 
-  useMemo(() => {
-    const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(
-      traffic_graph.nodes,
-      traffic_graph.edges
-    );
-    setNodes(
-      layoutedNodes.map((node) => ({
-        ...node,
-        type: nodeTypes[node.type as keyof typeof nodeTypes]
-          ? node.type
-          : "default",
-        data: { label: node.label },
-      }))
-    );
-    setEdges(
-      layoutedEdges.map((edge, index) => ({
-        ...edge,
-        id: `edge-${index}`,
-        style: { strokeWidth: `${Math.max(1, edge.trafficVolume / 10)}px` },
-      }))
-    );
-  }, [traffic_graph, setNodes, setEdges]);
+// Create reactflow edges
+const rfEdges = useMemo(() => {
+  // Find the maximum trafficVolume
+  const maxTrafficVolume = Math.max(...traffic_graph.edges.map(edge => edge.trafficVolume));
+
+  return traffic_graph.edges.map((edge: Edge) => {
+    // Calculate the stroke width and color based on the trafficVolume
+    const strokeWidth = 1 + 2 * (edge.trafficVolume / maxTrafficVolume);
+    const grayScale = Math.floor(255 - 200 * (edge.trafficVolume / maxTrafficVolume)).toString(16);
+
+    const strokeColor = `#${grayScale}${grayScale}${grayScale}`;
+
+    return {
+      id: `${edge.source}-${edge.target}`,
+      source: edge.source,
+      target: edge.target,
+      style: { 
+        strokeWidth: strokeWidth.toString(),
+        stroke: strokeColor,
+      },
+      animated: true,
+    };
+  });
+}, [traffic_graph.edges]);
 
   return (
-    <div style={{ height: 500 }}>
+    <div style={{ width: '100%', height: '100vh' }}>
       <ReactFlow
-        nodes={nodes}
-        edges={edges}
-        nodeTypes={nodeTypes}
-        onNodesChange={onNodesChange}
-        onEdgesChange={onEdgesChange}
+        nodes={rfNodes}
+        edges={rfEdges}
+        nodeTypes={{ milestone: MilestoneNode, milestoneStep: MilestoneStepNode}}
+        fitView
+        defaultEdgeOptions={{ type: 'bezier' }}
+        nodesConnectable={false}
+        elementsSelectable={false}
       >
         <Background />
         <MiniMap />

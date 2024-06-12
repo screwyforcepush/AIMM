@@ -5,13 +5,13 @@ const costConversion = 80000;
 const initNode: Node = {
     id: 'initialise',
     label: 'Initialise',
-    type: 'System',
+    type: 'system',
 };
 
 const exitNode: Node = {
     id: 'exit',
     label: 'Exit',
-    type: 'System',
+    type: 'system',
 };
 
 const mergeNodes = (nodes: Node[], baseNodes: Node[] = [initNode, exitNode]): Node[] => {
