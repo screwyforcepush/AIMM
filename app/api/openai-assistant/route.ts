@@ -45,7 +45,7 @@ export const POST = traceable(async (request:Request) => {
 })
 
 // get all of the OpenAI Assistant messages associated with a thread
-export const GET = traceable(async (request:Request) => {
+export const GET = async (request:NextRequest) => {
     // get thread id
     const searchParams = request.nextUrl.searchParams;
     const threadId = searchParams.get("threadId");
@@ -83,4 +83,4 @@ export const GET = traceable(async (request:Request) => {
 
     // return back to client
     return NextResponse.json(cleanMessages);
-})
+}
