@@ -10,39 +10,34 @@ export const runtime = "edge";
 
 
 // post a new message and stream OpenAI Assistant response
-//using the Request type instead of NextRequest because langsmith broke it
-export const POST = traceable(async (request:Request) => {
-    // parse message from post
+const handler = traceable(async (request: NextRequest) => {
     const newMessage = await request.json();
 
-    // create OpenAI client
-    const openai =  wrapOpenAI(new OpenAI());
+    const openai = new OpenAI();
 
-    // if no thread id then create a new openai thread
-    if (newMessage.threadId == null) {
+    if (!newMessage.threadId) {
         const thread = await openai.beta.threads.create();
         newMessage.threadId = thread.id;
     }
 
-    // add new message to thread
-    await openai.beta.threads.messages.create(
-        newMessage.threadId,
-        {
-            role: "user",
-            content: newMessage.content
-        }
-    );
+    await openai.beta.threads.messages.create(newMessage.threadId, {
+        role: "user",
+        content: newMessage.content
+    });
 
-    // create a run
-    const run = openai.beta.threads.runs.createAndStream(
-        newMessage.threadId, 
-        {assistant_id: newMessage.assistantId, stream:true}
-    );
-    
+    const run = await openai.beta.threads.runs.createAndStream(newMessage.threadId, {
+        assistant_id: newMessage.assistantId,
+        stream: true
+    });
 
     const stream = run.toReadableStream();
     return new Response(stream);
-})
+});
+
+export async function POST(request: NextRequest) {
+    return handler(request);
+}
+
 
 // get all of the OpenAI Assistant messages associated with a thread
 export const GET = async (request:NextRequest) => {
