@@ -6,13 +6,12 @@ import { wrapOpenAI } from "langsmith/wrappers";
 // this enables Edge Functions in Vercel
 // see https://vercel.com/blog/gpt-3-app-next-js-vercel-edge-functions
 // and updated here: https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config
-
-//Vercel and langsmith dont place nice
-// export const runtime = "edge";
+export const runtime = "edge";
 
 
 // post a new message and stream OpenAI Assistant response
-export const POST = traceable(async (request:NextRequest) => {
+//using the Request type instead of NextRequest because langsmith broke it
+export const POST = traceable(async (request:Request) => {
     // parse message from post
     const newMessage = await request.json();
 
@@ -46,7 +45,7 @@ export const POST = traceable(async (request:NextRequest) => {
 })
 
 // get all of the OpenAI Assistant messages associated with a thread
-export const GET = traceable(async (request:NextRequest) => {
+export const GET = traceable(async (request:Request) => {
     // get thread id
     const searchParams = request.nextUrl.searchParams;
     const threadId = searchParams.get("threadId");
