@@ -26,7 +26,7 @@ const mergeNodes = (nodes: Node[], baseNodes: Node[] = [initNode, exitNode]): No
             }
 
             existingNode.totalCost = (existingNode.totalCost || 0) + (node.totalCost || 0);
-            existingNode.avgCost = existingNode.totalCost > 0 ? existingNode.totalCost : 1 / (existingNode.message_ids?.length || 1);
+            existingNode.avgCost = (existingNode.totalCost > 0 ? existingNode.totalCost : 1) / (existingNode.message_ids?.length || 1);
 
             if (node.sentiment) {
                 existingNode.sentiment = existingNode.sentiment || {};

@@ -1,120 +1,9 @@
 import React, { useMemo } from "react";
-import ReactFlow, {
-  Background,
-  MiniMap,
-  Controls,
-  Handle,
-  Position,
-  BaseEdge,
-} from "reactflow";
+import ReactFlow from "reactflow";
 import "reactflow/dist/style.css";
 import { TrafficVisualizationComponentProps, Node, Edge } from "../types";
+import { MilestoneNode, MilestoneStepNode, SystemContainer, SystemNode, DeviationContainer, DeviationNode } from './nodes/CustomNodes';
 
-// Define custom node type to include grouped children
-const MilestoneNode: React.FC<{
-  data: { label: string; children: Node[] };
-}> = ({ data }) => {
-  return (
-    <div
-      className="bg-green-700 bg-opacity-30 border border-black p-2 rounded"
-      style={{ height: 70 * data.children.length + 50 }}
-    >
-      <div className="overflow-hidden">{data.label}</div>
-    </div>
-  );
-};
-
-const MilestoneStepNode: React.FC<{ data: { label: string } }> = ({ data }) => {
-  return (
-    <div
-      className="overflow-hidden bg-green-700 bg-opacity-50 p-2 rounded h-40"
-      style={{ height: 40 }}
-    >
-      <div className="">{data.label}</div>
-
-      <Handle
-        type="target"
-        position={Position.Left}
-        className="!bg-green-700 !border-none"
-      />
-      <Handle
-        type="source"
-        position={Position.Bottom}
-        className="!bg-green-700 !border-none"
-      />
-    </div>
-  );
-};
-
-const SystemContainer: React.FC<{
-  data: { label: string; children: Node[] };
-}> = ({ data }) => {
-  return (
-    <div
-      className="bg-gray-400 border border-black p-2 rounded"
-      style={{ height: 100 }}
-    >
-      <div className="">System</div>
-    </div>
-  );
-};
-
-const SystemNode: React.FC<{ data: { label: string } }> = ({ data }) => {
-  return (
-    <div
-      className="overflow-hidden bg-gray-600 p-2 rounded h-40"
-      style={{ height: 40 }}
-    >
-      <div className="text-white text-center font-semibold">{data.label}</div>
-
-      <Handle
-        type={data.label === "Exit" ? "target" : "source"}
-        position={Position.Bottom}
-        className="!bg-gray-900 !border-none"
-      />
-    </div>
-  );
-};
-
-const DeviationContainer: React.FC<{
-  data: { label: string; children: Node[] };
-}> = ({ data }) => {
-  return (
-    <div
-      className="bg-yellow-300 bg-opacity-30 border border-black p-2 rounded"
-      style={{ height: 100 }}
-    >
-      <div className="">Deviation</div>
-    </div>
-  );
-};
-
-const DeviationNode: React.FC<{ data: { label: string } }> = ({ data }) => {
-  return (
-    <div
-      className={`overflow-hidden p-2 rounded h-40 ${
-        data.label === "Prompt Hack Attempt"
-          ? "bg-red-500"
-          : data.label === "User Tangent"
-          ? "bg-gray-400"
-          : "bg-orange-500"
-      }`}
-      style={{ height: 40 }}
-    >
-      <div className="">{data.label}</div>
-      <Handle
-        type="target"
-        position={Position.Left}
-        className="!bg-gray-500 !border-none"
-      />
-      <Handle
-        type="source"
-        position={Position.Right}
-        className="!bg-gray-500 !border-none"
-      />{" "}
-    </div>
-  );
-};
 
 const TrafficVisualization: React.FC<TrafficVisualizationComponentProps> = ({
   traffic_graph,
@@ -180,7 +69,7 @@ const TrafficVisualization: React.FC<TrafficVisualizationComponentProps> = ({
         }
         nodes.push({
           id: child.id,
-          data: { label: child.label },
+          data: { label: child.label, nodeData: child },
           position: nPosition,
           parentId: type,
           extent: "parent",
@@ -218,9 +107,18 @@ const TrafficVisualization: React.FC<TrafficVisualizationComponentProps> = ({
           stroke: strokeColor,
         },
         animated: true,
+        className: "custom-edge",
+        data: { edgeData: edge }
       };
     });
   }, [traffic_graph.edges]);
+
+  const onEdgeClick = (edge: any) => console.log('click edge', edge);
+  const onNodeClick = (node: any) => {
+    console.log('click node', node);
+    // node.data.hover=true;
+  };
+
 
   return (
     <div className="w-full" style={{ height: "calc(100vh - 150px)" }}>
@@ -236,12 +134,13 @@ const TrafficVisualization: React.FC<TrafficVisualizationComponentProps> = ({
           deviationStep: DeviationNode,
         }}
         fitView
-        defaultEdgeOptions={{ type: "bezier", zIndex: 10 }}
+        defaultEdgeOptions={{ zIndex: 10 }}
         nodesConnectable={false}
-        elementsSelectable={false}
+        elementsSelectable={true}
+        nodesFocusable={true}
+        onNodeClick={onNodeClick}
+        onEdgeClick={onEdgeClick}
       >
-        <MiniMap />
-        <Controls />
       </ReactFlow>
     </div>
   );
