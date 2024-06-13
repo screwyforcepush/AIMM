@@ -121,7 +121,7 @@ export function buildTrafficGraph(threads: Thread[]): TrafficGraph {
                 let node_base={
                     message_ids: [node_thread.message_id],
                     totalCost: run_totalCost,
-                    avg_cost: run_totalCost,
+                    avgCost: run_totalCost,
                     ...(response_sentiment ? { sentiment: { [response_sentiment]: 1 } } : {}), 
                     cognitiveLoad: { [msg_cognitiveLoad]: 1 },
                     ...(response_engagement ? { engagement: { [response_engagement]: 1 } } : {}),
