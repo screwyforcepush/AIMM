@@ -6,7 +6,9 @@ import { wrapOpenAI } from "langsmith/wrappers";
 // this enables Edge Functions in Vercel
 // see https://vercel.com/blog/gpt-3-app-next-js-vercel-edge-functions
 // and updated here: https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config
-export const runtime = "edge";
+
+//Vercel and langsmith dont place nice
+// export const runtime = "edge";
 
 
 // post a new message and stream OpenAI Assistant response
