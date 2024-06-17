@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import ReactFlow from "reactflow";
 import "reactflow/dist/style.css";
 import { TrafficVisualizationComponentProps, Node, Edge } from "../types";
@@ -11,9 +11,10 @@ import {
   DeviationNode,
 } from "./nodes/CustomNodes";
 import CustomEdge from "./edges/CustomEdge";
+import DevTools from "./tools/Devtools";
 
 const TrafficVisualization: React.FC<TrafficVisualizationComponentProps> = ({
-  traffic_graph,
+  traffic_graph, threads
 }) => {
   // Group nodes by type
   const groupedNodes: { [key: string]: Node[] } = {};
@@ -90,7 +91,20 @@ const TrafficVisualization: React.FC<TrafficVisualizationComponentProps> = ({
   }, [traffic_graph.nodes]);
 
   // Add a new state variable for the selected edge
-  const [selectedEdge, setSelectedEdge] = useState<string | null>(null);
+  const [selectedEdge, setSelectedEdge] = useState<Edge | null>(null);
+  const [selectedNode, setSelectedNode] = useState<Node | null>(null);
+
+  useEffect(() => {
+    if (selectedNode) {
+      setSelectedEdge(null);
+    }
+  }, [selectedNode]);
+  
+  useEffect(() => {
+    if (selectedEdge) {
+      setSelectedNode(null);
+    }
+  }, [selectedEdge]);
 
   // Create reactflow edges
   const rfEdges = useMemo(() => {
@@ -125,42 +139,43 @@ const TrafficVisualization: React.FC<TrafficVisualizationComponentProps> = ({
     });
   }, [traffic_graph.edges]);
 
-  const onEdgeClick = (event:any, edge: any) => {
+  const onEdgeClick = (event: any, edge: any) => {
     console.log("click edge", edge);
-    //really bad performance remove for now
-    // setSelectedEdge(edge.id);
+    setSelectedEdge(edge.data.edgeData);
   };
-  const onNodeClick = (event:any, node: any) => {
+  const onNodeClick = (event: any, node: any) => {
     console.log("click node", node);
-    // node.data.hover=true;
+    setSelectedNode(node.data.nodeData);
   };
 
   return (
-      <div className="w-full" style={{ height: "calc(100vh - 150px)" }}>
-        <ReactFlow
-          nodes={rfNodes}
-          edges={rfEdges}
-          nodeTypes={{
-            milestone: MilestoneNode,
-            milestoneStep: MilestoneStepNode,
-            system: SystemContainer,
-            systemStep: SystemNode,
-            deviation: DeviationContainer,
-            deviationStep: DeviationNode,
-          }}
-          edgeTypes={{
-            customedge: CustomEdge,
-          }}
-          fitView
-          defaultEdgeOptions={{ zIndex: 10 }}
-          nodesConnectable={false}
-          // elementsSelectable={true}
-          // edgesFocusable={true}
-          // nodesFocusable={true}
-          onNodeClick={onNodeClick}
-          onEdgeClick={onEdgeClick}
-        ></ReactFlow>
-      </div>
+    <div className="w-full" style={{ height: "calc(100vh - 150px)" }}>
+      <ReactFlow
+        nodes={rfNodes}
+        edges={rfEdges}
+        nodeTypes={{
+          milestone: MilestoneNode,
+          milestoneStep: MilestoneStepNode,
+          system: SystemContainer,
+          systemStep: SystemNode,
+          deviation: DeviationContainer,
+          deviationStep: DeviationNode,
+        }}
+        edgeTypes={{
+          customedge: CustomEdge,
+        }}
+        fitView
+        defaultEdgeOptions={{ zIndex: 10 }}
+        nodesConnectable={false}
+        // elementsSelectable={true}
+        // edgesFocusable={true}
+        // nodesFocusable={true}
+        onNodeClick={onNodeClick}
+        onEdgeClick={onEdgeClick}
+      >
+        <DevTools edge={selectedEdge} node={selectedNode} nodeMessages={traffic_graph.nodeMessages} threads={threads}/>
+      </ReactFlow>
+    </div>
   );
 };
 

@@ -44,7 +44,8 @@ const DataViz = () => {
       /> : 
       <TrafficVisualization  
       traffic_graph={traffic_graph} 
-      searchQuery={searchQuery} />}
+      searchQuery={searchQuery}
+      threads={assitant_data.threads} />}
     </div>
   );
 };

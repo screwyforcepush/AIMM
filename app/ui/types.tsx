@@ -147,6 +147,7 @@ export type AggregateStatistics = {
 export interface TrafficVisualizationComponentProps {
   traffic_graph: TrafficGraph; // replace with the actual type
   searchQuery: string;
+  threads: Thread[];
 }
 
 export type NodeMessage = {
