@@ -25,8 +25,7 @@ const BaseNode: React.FC<BaseNodeProps> = ({
   return (
     <div className="relative">
       <div
-        className={`overflow-hidden whitespace-nowrap p-2 rounded h-40 cursor-pointer ${className}`}
-        style={style}
+className={`truncate overflow-hidden whitespace-nowrap p-2 rounded h-40 cursor-pointer ${className}`}        style={style}
         onMouseEnter={() => setTooltipVisible(true)}
         onMouseLeave={() => setTooltipVisible(false)}
       >

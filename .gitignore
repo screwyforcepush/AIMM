@@ -35,5 +35,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-#private
-/app/ui/threads_data.json
+# #private
+# /app/ui/threads_data.json

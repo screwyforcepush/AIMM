@@ -1,6 +1,6 @@
 import { Node, Edge, NodeMessage, Thread } from "../../types";
 import { useState, useEffect } from "react";
-import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
+import { AiOutlineLeft, AiOutlineRight, AiOutlineClose } from "react-icons/ai";
 
 import NodeInspector from "./NodeInspector";
 import EdgeInspector from "./EdgeInspector";
@@ -10,6 +10,9 @@ interface DevToolsProps {
   node: Node | null;
   nodeMessages: NodeMessage[];
   threads: Thread[];
+  setFilterThreadId: Function;
+  setSelectedNode: Function;
+  setSelectedEdge: Function;
 }
 
 export default function DevTools({
@@ -17,6 +20,9 @@ export default function DevTools({
   node,
   nodeMessages,
   threads,
+  setFilterThreadId,
+  setSelectedNode,
+  setSelectedEdge,
 }: DevToolsProps) {
   const [isPanelVisible, setIsPanelVisible] = useState(true);
   const [inspectThread, setInspectThread] = useState(null);
@@ -27,12 +33,16 @@ export default function DevTools({
       const thread =
         threads.find((thread) => thread.thread_id === inspectThread) || null;
       setFoundThread(thread);
+      setFilterThreadId(inspectThread);
+    } else {
+      setFilterThreadId(null);
     }
-  }, [inspectThread, threads]);
+  }, [inspectThread, threads, setFilterThreadId]);
 
   useEffect(() => {
     setIsPanelVisible(true);
   }, [edge, node]);
+
   const filteredNodeMessages = node?.message_ids
     ? nodeMessages.filter((message) =>
         node.message_ids?.includes(message.message_id)
@@ -72,7 +82,11 @@ export default function DevTools({
           {isPanelVisible && !inspectThread && (node || edge) && (
             <div className="self-start z-50">
               <button
-                onClick={() => setIsPanelVisible(!isPanelVisible)}
+                onClick={() => {
+                  setIsPanelVisible(!isPanelVisible);
+                  setSelectedNode(null);
+                  setSelectedEdge(null);
+                }}
                 className={`text-gray-600 p-2 text-2xl text-bold h-auto`}
               >
                 <AiOutlineLeft />
@@ -100,7 +114,7 @@ export default function DevTools({
                 onClick={() => setInspectThread(null)}
                 className={`text-gray-600 p-2 text-2xl text-bold h-auto`}
               >
-                <AiOutlineLeft />
+                <AiOutlineClose />
               </button>
             </div>
           )}

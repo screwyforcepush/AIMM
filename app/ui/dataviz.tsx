@@ -3,8 +3,7 @@ import React, { useState, useEffect } from 'react';
 import HighLevelAnalytics from './high-level-analytics/HighLevelAnalytics';
 import TrafficVisualization from './traffic/TrafficVisualization';
 import SearchFeature from './SearchFeature';
-import assistantsData from './assistants-data-example.json';
-import data from './assistants-data-example.json';
+import data from './threads_data.json';
 import {parseAssistantData, AggregateStatistics} from './types'
 import {buildTrafficGraph} from './traffic/TrafficGraph'
 // Ensure data has the correct structure
@@ -39,8 +38,8 @@ const DataViz = () => {
       {/* <SearchFeature onSearch={handleSearch} /> */}
       {view === 'high-level' ? 
       <HighLevelAnalytics 
-        totalStatistics={assistantsData.total} 
-        aggregateStatistics={assistantsData.aggregate as AggregateStatistics} 
+        totalStatistics={assitant_data.total} 
+        aggregateStatistics={assitant_data.aggregate as AggregateStatistics} 
       /> : 
       <TrafficVisualization  
       traffic_graph={traffic_graph} 

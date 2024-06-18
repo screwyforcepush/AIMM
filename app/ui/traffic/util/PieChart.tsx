@@ -33,7 +33,7 @@ import { AttributeKeys, ATTRIBUTES } from "./const";
   
     return (
       <text
-        x={x+10}
+        x={x}
         y={y}
         fill="white"
         textAnchor={x > cx ? "start" : "end"}

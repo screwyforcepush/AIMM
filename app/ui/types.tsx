@@ -224,7 +224,7 @@ function parseEnum<T extends Record<string, unknown>>(
   enumObject: T
 ): T[keyof T] {
   if (!Object.values(enumObject).includes(value)) {
-    throw new Error(`Invalid enum value: ${value}`);
+    throw new Error(`Invalid enum ${JSON.stringify(enumObject)} value: ${value}`);
   }
   return value as T[keyof T];
 }
@@ -347,15 +347,18 @@ function parseThread(data: any): Thread {
       validateProperty(data, "cog_load_majority", "string"),
       CognitiveLoad
     ),
-    sentiment_majority: parseEnum(
+    sentiment_majority: data["sentiment_majority"]
+    ? parseEnum(
       validateProperty(data, "sentiment_majority", "string"),
       Sentiment
-    ),
-    engagement_majority: parseEnum(
+    ) : null,
+    engagement_majority: data["engagement_majority"]
+    ? parseEnum(
       validateProperty(data, "engagement_majority", "string"),
       Engagement
-    ),
-    highest_step: validateProperty(data, "highest_step", "object"),
+    ): null,
+    highest_step: data["highest_step"]
+    ? validateProperty(data, "highest_step", "object"):null,
     message_count: validateProperty(data, "message_count", "number"),
     engagement_duration: validateProperty(
       data,

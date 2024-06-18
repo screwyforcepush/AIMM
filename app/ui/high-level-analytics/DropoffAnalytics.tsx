@@ -169,6 +169,7 @@ const DropoffAnalytics: React.FC<DropoffProps> = ({ dropoff_points }) => {
           dataKey="size"
           stroke="#fff"
           fill="#8884d8"
+          isAnimationActive={false}
           content={<CustomizedContent colors={colorScale(maxSize)} />}
         >
                 <Tooltip content={<CustomTooltip />} />

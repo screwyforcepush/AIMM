@@ -14,19 +14,19 @@ import CustomEdge from "./edges/CustomEdge";
 import DevTools from "./tools/Devtools";
 
 const TrafficVisualization: React.FC<TrafficVisualizationComponentProps> = ({
-  traffic_graph, threads
+  traffic_graph,
+  threads,
 }) => {
-  // Group nodes by type
-  const groupedNodes: { [key: string]: Node[] } = {};
-  traffic_graph.nodes.forEach((node) => {
-    if (!groupedNodes[node.type]) {
-      groupedNodes[node.type] = [];
-    }
-    groupedNodes[node.type].push(node);
-  });
-
   // Create reactflow nodes
   const rfNodes = useMemo(() => {
+    // Group nodes by type
+    const groupedNodes: { [key: string]: Node[] } = {};
+    traffic_graph.nodes.forEach((node) => {
+      if (!groupedNodes[node.type]) {
+        groupedNodes[node.type] = [];
+      }
+      groupedNodes[node.type].push(node);
+    });
     const nodes: any[] = [];
     let indexOffset = 0;
     Object.keys(groupedNodes).forEach((type, index) => {
@@ -93,21 +93,43 @@ const TrafficVisualization: React.FC<TrafficVisualizationComponentProps> = ({
   // Add a new state variable for the selected edge
   const [selectedEdge, setSelectedEdge] = useState<Edge | null>(null);
   const [selectedNode, setSelectedNode] = useState<Node | null>(null);
+  const [filterThreadId, setFilterThreadId] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (selectedNode) {
-      setSelectedEdge(null);
-    }
-  }, [selectedNode]);
-  
-  useEffect(() => {
-    if (selectedEdge) {
-      setSelectedNode(null);
-    }
-  }, [selectedEdge]);
+
 
   // Create reactflow edges
   const rfEdges = useMemo(() => {
+    // Calculate the stroke width and color based on the trafficVolume
+    function normalize(value: number, min: number, max: number): number {
+      return (value - min) / (max - min);
+    }
+
+    function scaleStrokeWidth(
+      trafficVolume: number,
+      maxTrafficVolume: number
+    ): number {
+      const normalizedVolume = normalize(trafficVolume, 1, maxTrafficVolume);
+      return 1 + 2 * Math.log(1 + normalizedVolume * 9); // Logarithmic scaling
+    }
+
+    function scaleStrokeColor(
+      trafficVolume: number,
+      maxTrafficVolume: number
+    ): string {
+      // Normalize the traffic volume within the range of 1 to maxTrafficVolume
+      const normalizedVolume = normalize(trafficVolume, 1, maxTrafficVolume);
+
+      // Apply a logarithmic scale to enhance the contrast in the lower range
+      const logScale = Math.log10(1 + normalizedVolume * 9);
+
+      // Adjust the color scaling to range from mid-grey to very dark grey
+      const scaledValue = Math.floor(127 - 112 * logScale)
+        .toString(16)
+        .padStart(2, "0");
+
+      // Return the resulting color in hex format
+      return `#${scaledValue}${scaledValue}${scaledValue}`;
+    }
     // Find the maximum trafficVolume
     const maxTrafficVolume = Math.max(
       ...traffic_graph.edges.map((edge) => edge.trafficVolume)
@@ -115,13 +137,22 @@ const TrafficVisualization: React.FC<TrafficVisualizationComponentProps> = ({
 
     return traffic_graph.edges.map((edge: Edge) => {
       // Calculate the stroke width and color based on the trafficVolume
-      const strokeWidth = 1 + 2 * (edge.trafficVolume / maxTrafficVolume);
-      const grayScale = Math.floor(
-        255 - 220 * (edge.trafficVolume / maxTrafficVolume)
-      ).toString(16);
+      // const strokeWidth = 1 + 2 * (edge.trafficVolume / maxTrafficVolume);
+      // const grayScale = Math.floor(
+      //   255 - 220 * (edge.trafficVolume / maxTrafficVolume)
+      // ).toString(16);
 
-      const strokeColor = `#${grayScale}${grayScale}${grayScale}`;
+      // const strokeColor = `#${grayScale}${grayScale}${grayScale}`;
+      const strokeWidth: number = scaleStrokeWidth(
+        edge.trafficVolume,
+        maxTrafficVolume
+      );
+      const strokeColor: string = scaleStrokeColor(
+        edge.trafficVolume,
+        maxTrafficVolume
+      );
 
+      // should refactor this hardcoded two places
       const edgeId = `${edge.source}-${edge.target}`;
 
       return {
@@ -142,17 +173,46 @@ const TrafficVisualization: React.FC<TrafficVisualizationComponentProps> = ({
   const onEdgeClick = (event: any, edge: any) => {
     console.log("click edge", edge);
     setSelectedEdge(edge.data.edgeData);
+    setSelectedNode(null);
   };
+  const [filteredRFEdges, setFilteredRFEdges] = useState(rfEdges);
+
   const onNodeClick = (event: any, node: any) => {
     console.log("click node", node);
     setSelectedNode(node.data.nodeData);
+    setSelectedEdge(null);
   };
+
+
+  useEffect(() => {
+    if (filterThreadId) {
+      const filteredEdges = rfEdges.filter((edge) =>
+        edge.data.edgeData.thread_ids.includes(filterThreadId)
+      );
+      setFilteredRFEdges(filteredEdges);
+    } else {
+      setFilteredRFEdges(rfEdges);
+    }
+  }, [filterThreadId, rfEdges]);
+
+  useEffect(() => {
+    if (selectedNode) {
+      setFilteredRFEdges(rfEdges.filter((edge) => edge.source === selectedNode.id || edge.target === selectedNode.id));
+    } else if (selectedEdge) {
+      setFilteredRFEdges(rfEdges.filter((edge) =>
+        edge.id == `${selectedEdge.source}-${selectedEdge.target}`
+      ))
+    } else {
+      setFilteredRFEdges(rfEdges);
+    }
+  }, [selectedNode, rfEdges, selectedEdge]);
+
 
   return (
     <div className="w-full" style={{ height: "calc(100vh - 150px)" }}>
       <ReactFlow
         nodes={rfNodes}
-        edges={rfEdges}
+        edges={filteredRFEdges}
         nodeTypes={{
           milestone: MilestoneNode,
           milestoneStep: MilestoneStepNode,
@@ -173,7 +233,15 @@ const TrafficVisualization: React.FC<TrafficVisualizationComponentProps> = ({
         onNodeClick={onNodeClick}
         onEdgeClick={onEdgeClick}
       >
-        <DevTools edge={selectedEdge} node={selectedNode} nodeMessages={traffic_graph.nodeMessages} threads={threads}/>
+        <DevTools
+          edge={selectedEdge}
+          node={selectedNode}
+          nodeMessages={traffic_graph.nodeMessages}
+          threads={threads}
+          setFilterThreadId={setFilterThreadId}
+          setSelectedNode={setSelectedNode}
+          setSelectedEdge={setSelectedEdge}
+        />
       </ReactFlow>
     </div>
   );

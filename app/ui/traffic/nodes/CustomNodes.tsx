@@ -20,7 +20,7 @@ export const MilestoneStepNode: React.FC<{ data: { label: string; nodeData: Node
     <BaseNode
       data={data}
       style={{ height: 40 }}
-      className="bg-green-700 bg-opacity-50"
+      className="bg-green-700 bg-opacity-80"
       handles={[
         { type: 'target', position: Position.Left },
         { type: 'source', position: Position.Bottom }

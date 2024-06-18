@@ -59,6 +59,7 @@ const getMetaFromMessage = (message: NodeMessage) => {
 const MessageDetails = ({ message, setInspectThread }: MessageDetailsProps) => {
   const meta = getMetaFromMessage(message);
   const [isOpen, setIsOpen] = useState(false);
+  const gradientColors = meta.map((item) => item.color).join(", ");
 
   useEffect(() => {
     setIsOpen(false);
@@ -66,7 +67,8 @@ const MessageDetails = ({ message, setInspectThread }: MessageDetailsProps) => {
   return (
     <div className="message-details pb-5">
       <div
-        className="parent font-semibold flex justify-between cursor-pointer"
+        className="parent font-semibold flex justify-between cursor-pointer rounded p-2"
+        style={{ background: `linear-gradient(to right, ${gradientColors})` }}
         onClick={() => setIsOpen(!isOpen)}
       >
         <div>
@@ -87,7 +89,7 @@ const MessageDetails = ({ message, setInspectThread }: MessageDetailsProps) => {
           onClick={() => setInspectThread(message.thread_id)}
         >
           <div>Thread: {message.thread_id}</div>
-          <AiOutlineRight className="text-2xl"/>
+          <AiOutlineRight className="text-2xl" />
         </div>
         {meta.map((item, index) => (
           <p key={index}>
