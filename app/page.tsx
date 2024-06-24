@@ -100,7 +100,7 @@ export default function Home() {
           onClick={handleClick}
           className="fixed top-0 right-0 m-4 bg-gradient-to-r from-blue-700 to-cyan-600 hover:from-blue-800 hover:to-cyan-700 text-white font-bold py-2 px-4 rounded z-10"
         >
-          {showDataViz ? 'Aimme' : 'DataViz'}
+          {showDataViz ? 'Aimme' : 'FlowGuard'}
         </button>
         {showDataViz && <DataViz />}
       </main>
