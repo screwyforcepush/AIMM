@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import HighLevelAnalytics from './high-level-analytics/HighLevelAnalytics';
 import TrafficVisualization from './traffic/TrafficVisualization';
+import FlowGuardRoadmap from './roadmap/FlowGuardRoadmap';
 import SearchFeature from './SearchFeature';
 import data from './threads_data.json';
 import {parseAssistantData, AggregateStatistics} from './types'
@@ -11,7 +12,7 @@ const assitant_data = parseAssistantData(data);
 const traffic_graph = buildTrafficGraph(assitant_data.threads)
 
 const DataViz = () => {
-  const [view, setView] = useState<'high-level' | 'traffic'>('high-level');
+  const [view, setView] = useState<'high-level' | 'traffic' | 'roadmap'>('high-level');
   const [searchQuery, setSearchQuery] = useState('');
 
   const handleSearch = (query: string) => {
@@ -30,9 +31,15 @@ const DataViz = () => {
         </button>
         <button 
           onClick={() => setView('traffic')} 
-          className={`font-bold py-2 px-4 text-white transition duration-150 ease-in-out rounded-t ${view === 'traffic' ? 'bg-cyan-600 border-b-2 border-cyan-600' : 'bg-blue-700 hover:bg-blue-800'}`}
+          className={`mr-2 font-bold py-2 px-4 text-white transition duration-150 ease-in-out rounded-t ${view === 'traffic' ? 'bg-cyan-600 border-b-2 border-cyan-600' : 'bg-blue-700 hover:bg-blue-800'}`}
         >
           Traffic
+        </button>
+        <button 
+          onClick={() => setView('roadmap')} 
+          className={`font-bold py-2 px-4 text-white transition duration-150 ease-in-out rounded-t ${view === 'roadmap' ? 'bg-cyan-600 border-b-2 border-cyan-600' : 'bg-blue-700 hover:bg-blue-800'}`}
+        >
+          Roadmap
         </button>
       </div>
       {/* <SearchFeature onSearch={handleSearch} /> */}
@@ -40,11 +47,12 @@ const DataViz = () => {
       <HighLevelAnalytics 
         totalStatistics={assitant_data.total} 
         aggregateStatistics={assitant_data.aggregate as AggregateStatistics} 
-      /> : 
+      /> : view === 'traffic' ? 
       <TrafficVisualization  
       traffic_graph={traffic_graph} 
       searchQuery={searchQuery}
-      threads={assitant_data.threads} />}
+      threads={assitant_data.threads} />:
+      <FlowGuardRoadmap/>}
     </div>
   );
 };
