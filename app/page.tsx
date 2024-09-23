@@ -86,7 +86,7 @@ export default function Home() {
           <div className="flex-1 flex items-center justify-center py-12 px-4 sm:px-6 lg:flex-unset lg:px-8 bg-gray-200/90 backdrop-blur-md shadow-2xl">
             <div className="mx-auto max-w-4xl w-full p-2 bg-white rounded-lg border border-gray-300 shadow-lg overflow-auto transition-transform duration-300 ease-in-out">
               <OpenAIAssistant
-                assistantId="asst_F0BXMk3wkyyTWBYzjonmQpTe"
+                assistantId="asst_DYX45p5iotCMo71dPKeB1E7n"
                 greeting={`🚀 Hello! I'm *Aimme Pointsout*, a master AI architect, strategist, and engineer.\n\nToday, I would like to ask you a few questions and in return I will provide you with a your business' AI Maturity Model (AIMM). Are you ready to discover how AI can elevate your operations?\n\nType **'Begin'** to start the 5min assessment! Feel free to answer the questions conversationally… 🚀
               `}
                 messageLimit={50}
