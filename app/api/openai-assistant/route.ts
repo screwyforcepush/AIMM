@@ -16,18 +16,30 @@ const handler = traceable(async (request: NextRequest) => {
     const openai = new OpenAI();
 
     if (!newMessage.threadId) {
-        const thread = await openai.beta.threads.create();
+        const thread = await openai.beta.threads.create({
+            headers: {
+                'OpenAI-Beta': 'assistants=v2'
+            }
+        });
         newMessage.threadId = thread.id;
     }
 
     await openai.beta.threads.messages.create(newMessage.threadId, {
         role: "user",
         content: newMessage.content
+    }, {
+        headers: {
+            'OpenAI-Beta': 'assistants=v2'
+        }
     });
 
     const run = await openai.beta.threads.runs.createAndStream(newMessage.threadId, {
         assistant_id: newMessage.assistantId,
         stream: true
+    }, {
+        headers: {
+            'OpenAI-Beta': 'assistants=v2'
+        }
     });
 
     const stream = run.toReadableStream();
@@ -61,6 +73,11 @@ export const GET = async (request:NextRequest) => {
     const threadMessages = await openai.beta.threads.messages.list(
         threadId,
         {limit: parseInt(messageLimit)},
+        {
+            headers: {
+                'OpenAI-Beta': 'assistants=v2'
+            }
+        }
     );
 
     // only transmit the data that we need
